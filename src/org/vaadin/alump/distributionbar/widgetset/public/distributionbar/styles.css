@@ -1,0 +1,80 @@
+.alump-distributionbar {
+    display: inline-block;
+    overflow-x: visible;
+    white-space: nowrap;
+    text-align: right;
+    height: 24px;
+}
+
+.alump-distributionbar-uninitialized {
+    color: red;
+    text-weight: bold;
+}
+
+.alump-distributionbar-text {
+    padding: 0px 5px 0px 12px;
+}
+
+.alump-distributionbar-left {
+    text-align: left;
+    border-radius: 15px 0px 0px 15px;
+    padding: 5px 0px 5px 0px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    min-width: 30px;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+    
+    transition: width 2s;
+    -moz-transition: width 2s;
+    -webkit-transition: width 2s;
+}
+
+.alump-distributionbar-middle {
+    text-align: left;
+    padding: 5px 0px 5px 0px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    min-width: 30px;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+    
+    transition: width 2s;
+    -moz-transition: width 2s;
+    -webkit-transition: width 2s;
+}
+
+.alump-distributionbar-right {
+    text-align: left;
+    border-radius: 0px 15px 15px 0px;
+    padding: 5px 0px 5px 0px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    min-width: 30px;
+    text-shadow: 1px 1px 1px #FFFFFF, -0.5px -0.5px 0.5px #FFFFFF;
+    
+    transition: width 2s;
+    -moz-transition: width 2s;
+    -webkit-transition: width 2s;
+}
+
+.alump-distributionbar-part-1 {
+    background-image: url(img/left-bg.png);
+    background-repeat: none;
+    background-size: auto 24px;
+    color: white;
+}
+
+.alump-distributionbar-part-2 {
+    background-image: url(img/middle-bg.png);
+    background-repeat: repeat-x;
+    background-size: auto 24px;
+    color: white; 
+}
+.alump-distributionbar-part-3 {
+    background-image: url(img/right-bg.png);
+    background-repeat: none;
+    background-size: auto 24px;
+    color: black; 
+}
