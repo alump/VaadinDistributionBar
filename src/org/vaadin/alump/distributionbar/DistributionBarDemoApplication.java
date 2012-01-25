@@ -123,6 +123,8 @@ public class DistributionBarDemoApplication extends Application {
 	private final Button.ClickListener randomButtonListener = 
 		new Button.ClickListener() {
 
+			private static final long serialVersionUID = -4454445076337898590L;
+
 			public void buttonClick(ClickEvent event) {
 				
 				Random random = new Random();

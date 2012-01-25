@@ -50,6 +50,7 @@ public class DistributionBar extends AbstractComponent {
 			title = new String();
 		}
 		
+		@SuppressWarnings("unused")
 		public Part(int size) {
 			setSize (size);
 			title = new String();
@@ -151,7 +152,7 @@ public class DistributionBar extends AbstractComponent {
 	public void setPartSize (int index, int size) {
 		try {
 			Part part = parts.get(index); 
-			part.size = size;
+			part.setSize(size);
 			requestRepaint();
 		} catch (IndexOutOfBoundsException exception) {
 		}
@@ -166,7 +167,7 @@ public class DistributionBar extends AbstractComponent {
 	public void setPartTitle (int index, String title) {
 		try {
 			Part part = parts.get(index); 
-			part.title = title;
+			part.setTitle(title);
 			requestRepaint();
 		} catch (IndexOutOfBoundsException exception) {
 		}
@@ -209,7 +210,7 @@ public class DistributionBar extends AbstractComponent {
 		
 		List<Part> ret = new ArrayList<Part>();
 		for (int i = 0; i < makeParts; ++i) {
-			ret.add(new Part(0));
+			ret.add(new Part());
 		}
 		
 		return ret;
