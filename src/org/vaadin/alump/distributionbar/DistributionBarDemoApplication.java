@@ -31,17 +31,20 @@ import com.vaadin.ui.Window;
 
 public class DistributionBarDemoApplication extends Application {
 	
+	private static final long serialVersionUID = -2473123168493326044L;
 	private DistributionBar barOne;
 	private DistributionBar barTwo;
 	private DistributionBar barThree;
 	private DistributionBar barFour;
 	private DistributionBar barFive;
+	private DistributionBar barSix;
 	
 	final static private int BAR_ONE_PARTS = 2;
 	final static private int BAR_TWO_PARTS = 3;
 	final static private int BAR_THREE_PARTS = 6;
 	final static private int BAR_FOUR_PARTS = 10;
 	final static private int BAR_FIVE_PARTS = 2;
+	final static private int BAR_SIX_PARTS = 11;
 	
 	@Override
 	public void init() {
@@ -104,6 +107,13 @@ public class DistributionBarDemoApplication extends Application {
 		barFive.setPartTitle(1, "NO!");
 		layout.addComponent(barFive);
 		layout.setComponentAlignment(barFive, Alignment.MIDDLE_CENTER);
+		
+		barSix = new DistributionBar(BAR_SIX_PARTS);
+		barSix.setCaption("Change in part count:");
+		barSix.setWidth("100%");
+		barSix.addStyleName("my-bar-six");
+		layout.addComponent(barSix);
+		layout.setComponentAlignment(barSix, Alignment.MIDDLE_CENTER);
 
 		
 		return layout;
@@ -140,6 +150,13 @@ public class DistributionBarDemoApplication extends Application {
 				for (int i = 0; i < BAR_FIVE_PARTS; ++i) {
 					barFive.setPartSize(i, random.nextInt(10000000));
 				}
+				
+				int newSize = 2 + random.nextInt(9);
+				barSix.setNumberOfParts(newSize);
+				for (int i = 0; i < newSize; ++i) {
+					barSix.setPartSize(i, random.nextInt(5));
+				}
+				
 				
 			}
 	};

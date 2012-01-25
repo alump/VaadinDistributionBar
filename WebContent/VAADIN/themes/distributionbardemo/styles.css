@@ -91,3 +91,59 @@
 	background-color: rgb(50%,0%,0%);
 	min-width: 80px;
 }
+
+.my-bar-six .alump-distributionbar-part-1 {
+    background-color: rgb(0%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+.my-bar-six .alump-distributionbar-part-2 {
+    background-color: rgb(20%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+.my-bar-six .alump-distributionbar-part-3 {
+    background-color: rgb(40%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+.my-bar-six .alump-distributionbar-part-4 {
+    background-color: rgb(60%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+.my-bar-six .alump-distributionbar-part-5 {
+    background-color: rgb(80%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+.my-bar-six .alump-distributionbar-part-6 {
+    background-color: rgb(100%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+.my-bar-six .alump-distributionbar-part-7 {
+    background-color: rgb(100%,20%,20%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+}
+.my-bar-six .alump-distributionbar-part-8 {
+    background-color: rgb(100%,40%,40%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+}
+.my-bar-six .alump-distributionbar-part-9 {
+    background-color: rgb(100%,60%,60%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+}
+.my-bar-six .alump-distributionbar-part-10 {
+    background-color: rgb(100%,80%,80%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+}
+.my-bar-six .alump-distributionbar-part-11 {
+    background-color: rgb(100%,100%,100%);
+    color: red;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+}

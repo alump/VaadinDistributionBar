@@ -114,6 +114,10 @@ public class GwtDistributionBar extends Widget {
 	 */
 	public void setNumberOfParts (int parts) {
 		
+		if (parts < 2) {
+			parts = 2;
+		}
+		
 		if (parts == sizes.size()) {
 			return;
 		}
