@@ -16,14 +16,13 @@
 }
 
 .alump-distributionbar-left {
-    text-align: left;
+	text-align: left;
     border-radius: 15px 0px 0px 15px;
     padding: 5px 0px 5px 0px;
     height: 14px;
     vertical-align: middle;
     display: inline-block;
     min-width: 30px;
-    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
     
     transition: width 2s;
     -moz-transition: width 2s;
@@ -37,7 +36,6 @@
     vertical-align: middle;
     display: inline-block;
     min-width: 30px;
-    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
     
     transition: width 2s;
     -moz-transition: width 2s;
@@ -52,7 +50,6 @@
     vertical-align: middle;
     display: inline-block;
     min-width: 30px;
-    text-shadow: 1px 1px 1px #FFFFFF, -0.5px -0.5px 0.5px #FFFFFF;
     
     transition: width 2s;
     -moz-transition: width 2s;
@@ -60,21 +57,61 @@
 }
 
 .alump-distributionbar-part-1 {
-    background-image: url(img/left-bg.png);
-    background-repeat: none;
-    background-size: auto 24px;
-    color: white;
+	background-color: rgb(50%,0%,0%);
+	color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
 
 .alump-distributionbar-part-2 {
-    background-image: url(img/middle-bg.png);
-    background-repeat: repeat-x;
-    background-size: auto 24px;
-    color: white; 
+	background-color: rgb(0%,0%,50%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
+
 .alump-distributionbar-part-3 {
-    background-image: url(img/right-bg.png);
-    background-repeat: none;
-    background-size: auto 24px;
-    color: black; 
+    background-color: rgb(0%,50%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;	
+}
+
+.alump-distributionbar-part-4 {
+    background-color: rgb(50%,50%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;  
+}
+
+.alump-distributionbar-part-5 {
+    background-color: rgb(0%,50%,50%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;  
+}
+
+.alump-distributionbar-part-6 {
+    background-color: rgb(50%,0%,50%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;  
+}
+
+.alump-distributionbar-part-7 {
+    background-color: rgb(0%,0%,0%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;  
+}
+
+.alump-distributionbar-part-8 {
+    background-color: rgb(100%,25%,25%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;  
+}
+
+.alump-distributionbar-part-9 {
+    background-color: rgb(50%,50%,100%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;  
+}
+
+.alump-distributionbar-part-10 {
+    background-color: rgb(25%,100%,25%);
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;  
 }

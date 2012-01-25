@@ -16,6 +16,12 @@
 			<param-name>application</param-name>
 			<param-value>org.vaadin.alump.distributionbar.DistributionBarDemoApplication</param-value>
 		</init-param>
+		      <init-param>
+            <description>
+            Application widgetset</description>
+            <param-name>widgetset</param-name>
+            <param-value>org.vaadin.alump.distributionbar.widgetset.DistributionBarWidgetset</param-value>
+        </init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Vaadin Distribution Bar Demo</servlet-name>

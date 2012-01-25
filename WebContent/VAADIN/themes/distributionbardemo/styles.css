@@ -1,0 +1,93 @@
+@import "../reindeer/styles.css";
+
+.my-bar-one {
+	max-width: 800px;
+}
+
+.my-bar-one .alump-distributionbar-part-1 {
+	background-image: none;
+    background-color: rgb(50%,0%,0%);
+	color: white;
+	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+
+.my-bar-one .alump-distributionbar-part-2 {
+    background-image: none;
+    background-color: rgb(0%,0%,50%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+
+.my-bar-two {
+	max-width: 1200px;
+}
+
+.my-bar-two .alump-distributionbar-left {
+	border-radius: 0px;
+}
+
+.my-bar-two .alump-distributionbar-right {
+    border-radius: 0px;
+}
+
+.my-bar-two .alump-distributionbar-part-1 {
+	background-color: transparent;
+    background-image: url(left0.png);
+    background-repeat: none;
+    background-size: auto 24px;
+    color: white;
+}
+
+.my-bar-two .alump-distributionbar-part-2 {
+    background-color: transparent;
+    background-image: url(middle0.png);
+    background-repeat: none;
+    background-size: auto 24px;
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+}
+
+.my-bar-two .alump-distributionbar-part-3 {
+    background-color: transparent;
+    background-image: url(right0.png);
+    background-repeat: none;
+    background-size: auto 24px;
+    background-position: top right;
+    color: white;
+}
+
+.my-bar-three {
+    
+}
+
+.my-bar-four {
+    max-width: 1200px;
+}
+
+.my-bar-four .alump-distributionbar-part-1, .my-bar-four .alump-distributionbar-part-3, .my-bar-four .alump-distributionbar-part-5, .my-bar-four .alump-distributionbar-part-7, .my-bar-four .alump-distributionbar-part-9 {
+	background-color: gray;
+	color: white;
+	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+	border-radius: 8px 8px 8px 8px;
+}
+
+.my-bar-four .alump-distributionbar-part-2, .my-bar-four .alump-distributionbar-part-4, .my-bar-four .alump-distributionbar-part-6, .my-bar-four .alump-distributionbar-part-8, .my-bar-four .alump-distributionbar-part-10 {
+    background-color: silver;
+    color: black;
+    text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.my-bar-five {
+    max-width: 1200px;
+}
+
+.my-bar-five .alump-distributionbar-part-1 {
+	background-color: rgb(0%,50%,0%);
+	min-width: 80px;
+}
+
+.my-bar-five .alump-distributionbar-part-2 {
+	background-color: rgb(50%,0%,0%);
+	min-width: 80px;
+}
