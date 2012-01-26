@@ -38,11 +38,18 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GwtDistributionBar extends Widget {
 	
-	public static final String CLASSNAME = "alump-distributionbar";
-	public static final String PARTCLASSNAMEPREFIX = CLASSNAME + "-part-";
-	public static final String PART_TEXT_CLASSNAME = CLASSNAME + "-text";
+	protected static final String CLASSNAME = "alump-distributionbar";
+	private static final String PARTCLASSNAMEPREFIX = CLASSNAME + "-part-";
+	private static final String PART_TEXT_CLASSNAME = CLASSNAME + "-text";
 	
+	/**
+	 * List of sizes of parts
+	 */
 	private final List<Integer> sizes;
+	
+	/**
+	 * Timer used to delay recalculation of widths when window is resized
+	 */
 	private Timer delayer;
 	
 	/**
@@ -50,6 +57,9 @@ public class GwtDistributionBar extends Widget {
 	 */
 	private static final int DEFAULT_VALUE = 0;
 	
+	/**
+	 * Constructor
+	 */
 	public GwtDistributionBar() {
 		
 		initRootElement();
@@ -65,6 +75,9 @@ public class GwtDistributionBar extends Widget {
 		Window.addResizeHandler(resizeHandler);
 	}
 	
+	/**
+	 * Handled for resize events of window
+	 */
 	private final ResizeHandler resizeHandler = new ResizeHandler() {
 		
 		public void onResize(final ResizeEvent event) {
@@ -86,6 +99,10 @@ public class GwtDistributionBar extends Widget {
 		}
 	};
 	
+	/**
+	 * Initialize root element of distribution bar
+	 * @return Root element initialized
+	 */
 	private Element initRootElement() {
 		
 		Element element = getElement();
@@ -219,6 +236,13 @@ public class GwtDistributionBar extends Widget {
 		}
 	}
 	
+	/**
+	 * Set size for part element
+	 * @param part Part element
+	 * @param size New size
+	 * @param total Sum of all sizes
+	 * @param parentSize Size of parent in pixels
+	 */
 	private void setPartElementSize (Element part, int size, int total,
 		int parentSize) {
 		

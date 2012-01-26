@@ -30,10 +30,24 @@ public class VDistributionBar extends GwtDistributionBar implements Paintable {
 	protected String paintableId;
 	protected ApplicationConnection client;
 	
+	/**
+	 * Attribute name for number of parts
+	 */
 	private static final String ATTR_PARTS = "parts";
+	
+	/**
+	 * Attribute prefix for part sizes
+	 */
 	private static final String ATTR_PREFIX_PARTSIZE = "partsize-";
+	
+	/**
+	 * Attribute prefix for part titles
+	 */
 	private static final String ATTR_PREFIX_PARTTITLE = "parttitle-";
 
+	/**
+	 * Constructor
+	 */
 	public VDistributionBar() {
 	}
 

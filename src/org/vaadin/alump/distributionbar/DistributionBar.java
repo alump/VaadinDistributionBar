@@ -174,7 +174,7 @@ public class DistributionBar extends AbstractComponent {
 	}
 	
 	/**
-	 * Get number of parts defined for distribution bar
+	 * Get number of parts in distribution bar
 	 * @return Number of parts in distribution bar
 	 */
 	public int getNumberOfParts() {
@@ -198,8 +198,9 @@ public class DistributionBar extends AbstractComponent {
 	}
 	
 	/**
-	 * Generate new parts lists
-	 * @param amount Amount of parts in list
+	 * Generate new parts lists. All part information is lost.
+	 * @param amount Amount of parts in list. If less than two is given value
+	 * is read as two.
 	 * @return Parts list generated
 	 */
 	private static List<Part> createPartsList(int amount) {
