@@ -4,14 +4,14 @@
 	max-width: 800px;
 }
 
-.my-bar-one .alump-distributionbar-part-1 {
+.my-bar-one .alump-dbar-part-1 {
 	background-image: none;
     background-color: rgb(50%,0%,0%);
 	color: white;
 	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
 
-.my-bar-one .alump-distributionbar-part-2 {
+.my-bar-one .alump-dbar-part-2 {
     background-image: none;
     background-color: rgb(0%,0%,50%);
     color: white;
@@ -22,15 +22,15 @@
 	max-width: 1200px;
 }
 
-.my-bar-two .alump-distributionbar-left {
+.my-bar-two .alump-dbar-left {
 	border-radius: 0px;
 }
 
-.my-bar-two .alump-distributionbar-right {
+.my-bar-two .alump-dbar-right {
     border-radius: 0px;
 }
 
-.my-bar-two .alump-distributionbar-part-1 {
+.my-bar-two .alump-dbar-part-1 {
 	background-color: transparent;
     background-image: url(left0.png);
     background-repeat: none;
@@ -38,7 +38,7 @@
     color: white;
 }
 
-.my-bar-two .alump-distributionbar-part-2 {
+.my-bar-two .alump-dbar-part-2 {
     background-color: transparent;
     background-image: url(middle0.png);
     background-repeat: none;
@@ -47,7 +47,7 @@
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
 }
 
-.my-bar-two .alump-distributionbar-part-3 {
+.my-bar-two .alump-dbar-part-3 {
     background-color: transparent;
     background-image: url(right0.png);
     background-repeat: none;
@@ -64,14 +64,14 @@
     max-width: 1200px;
 }
 
-.my-bar-four .alump-distributionbar-part-1, .my-bar-four .alump-distributionbar-part-3, .my-bar-four .alump-distributionbar-part-5, .my-bar-four .alump-distributionbar-part-7, .my-bar-four .alump-distributionbar-part-9 {
+.my-bar-four .alump-dbar-part-1, .my-bar-four .alump-dbar-part-3, .my-bar-four .alump-dbar-part-5, .my-bar-four .alump-dbar-part-7, .my-bar-four .alump-dbar-part-9 {
 	background-color: gray;
 	color: white;
 	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 	border-radius: 8px 8px 8px 8px;
 }
 
-.my-bar-four .alump-distributionbar-part-2, .my-bar-four .alump-distributionbar-part-4, .my-bar-four .alump-distributionbar-part-6, .my-bar-four .alump-distributionbar-part-8, .my-bar-four .alump-distributionbar-part-10 {
+.my-bar-four .alump-dbar-part-2, .my-bar-four .alump-dbar-part-4, .my-bar-four .alump-dbar-part-6, .my-bar-four .alump-dbar-part-8, .my-bar-four .alump-dbar-part-10 {
     background-color: silver;
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
@@ -82,67 +82,67 @@
     max-width: 1200px;
 }
 
-.my-bar-five .alump-distributionbar-part-1 {
+.my-bar-five .alump-dbar-part-1 {
 	background-color: rgb(0%,50%,0%);
 	min-width: 80px;
 }
 
-.my-bar-five .alump-distributionbar-part-2 {
+.my-bar-five .alump-dbar-part-2 {
 	background-color: rgb(50%,0%,0%);
 	min-width: 80px;
 }
 
-.my-bar-six .alump-distributionbar-part-1 {
+.my-bar-six .alump-dbar-part-1 {
     background-color: rgb(0%,0%,0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
-.my-bar-six .alump-distributionbar-part-2 {
+.my-bar-six .alump-dbar-part-2 {
     background-color: rgb(20%,0%,0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
-.my-bar-six .alump-distributionbar-part-3 {
+.my-bar-six .alump-dbar-part-3 {
     background-color: rgb(40%,0%,0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
-.my-bar-six .alump-distributionbar-part-4 {
+.my-bar-six .alump-dbar-part-4 {
     background-color: rgb(60%,0%,0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
-.my-bar-six .alump-distributionbar-part-5 {
+.my-bar-six .alump-dbar-part-5 {
     background-color: rgb(80%,0%,0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
-.my-bar-six .alump-distributionbar-part-6 {
+.my-bar-six .alump-dbar-part-6 {
     background-color: rgb(100%,0%,0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
-.my-bar-six .alump-distributionbar-part-7 {
+.my-bar-six .alump-dbar-part-7 {
     background-color: rgb(100%,20%,20%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
 }
-.my-bar-six .alump-distributionbar-part-8 {
+.my-bar-six .alump-dbar-part-8 {
     background-color: rgb(100%,40%,40%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
 }
-.my-bar-six .alump-distributionbar-part-9 {
+.my-bar-six .alump-dbar-part-9 {
     background-color: rgb(100%,60%,60%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
 }
-.my-bar-six .alump-distributionbar-part-10 {
+.my-bar-six .alump-dbar-part-10 {
     background-color: rgb(100%,80%,80%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
 }
-.my-bar-six .alump-distributionbar-part-11 {
+.my-bar-six .alump-dbar-part-11 {
     background-color: rgb(100%,100%,100%);
     color: red;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;

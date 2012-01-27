@@ -31,7 +31,7 @@ import com.vaadin.ui.Window;
 
 public class DistributionBarDemoApplication extends Application {
 	
-	private static final long serialVersionUID = -2473123168493326044L;
+	private static final long serialVersionUID = -8067082130120161624L;
 	private DistributionBar barOne;
 	private DistributionBar barTwo;
 	private DistributionBar barThree;
@@ -73,8 +73,8 @@ public class DistributionBarDemoApplication extends Application {
 		barOne.setCaption("Senate:");
 		barOne.setWidth("100%");
 		barOne.addStyleName("my-bar-one");
-		barOne.setPartTitle(0, "Democratic Party");
-		barOne.setPartTitle(1, "Republican Party");
+		barOne.setPartTitle(0, "Republican Party");
+		barOne.setPartTitle(1, "Democratic Party");
 		layout.addComponent(barOne);
 		layout.setComponentAlignment(barOne, Alignment.MIDDLE_CENTER);
 		

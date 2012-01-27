@@ -3,5 +3,15 @@
 <module>
 	<inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet" />
 	
+	<replace-with
+        class="org.vaadin.alump.distributionbar.widgetset.client.ui.ClassicElementBuilder">
+        <when-type-is class="org.vaadin.alump.distributionbar.widgetset.client.ui.ElementBuilder" />
+		
+		<any>
+		  <when-property-is name="user.agent" value="ie6"/>
+		</any>
+
+    </replace-with>
+	
 	<stylesheet src="distributionbar/styles.css"/>
 </module>
