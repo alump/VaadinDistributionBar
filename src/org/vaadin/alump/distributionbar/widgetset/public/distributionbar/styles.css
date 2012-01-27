@@ -1,9 +1,9 @@
 .alump-dbar {
+    height: 24px;
+
     display: inline-block;
     overflow-x: visible;
     white-space: nowrap;
-    text-align: right;
-    height: 24px;
 }
 
 .alump-dbar-uninitialized {
@@ -21,13 +21,11 @@
     padding: 5px 0px 5px 0px;
     height: 14px;
     vertical-align: middle;
-    display: inline-block;
-    min-width: 30px;
-}
 
-DIV.alump-dbar-left {
-    border-radius: 15px 0px 0px 15px;
-    
+    display: inline-block;	
+    min-width: 30px;
+	border-radius: 15px 0px 0px 15px;
+     
     transition: width 2s;
     -moz-transition: width 2s;
     -webkit-transition: width 2s;
@@ -40,27 +38,24 @@ DIV.alump-dbar-left {
     padding: 5px 0px 5px 0px;
     height: 14px;
     vertical-align: middle;
-    display: inline-block;
-    min-width: 30px;
-}
 
-DIV.alump-dbar-middle {
+    display: inline-block;
+    min-width: 30px;    
+	
 	transition: width 2s;
     -moz-transition: width 2s;
     -webkit-transition: width 2s;
     -o-transition: width 2s;
 }
 
-DIV.alump-dbar-right {
+.alump-dbar-right {
     text-align: left;
     padding: 5px 0px 5px 0px;
     height: 14px;
     vertical-align: middle;
-    display: inline-block;
-    min-width: 30px;
-}
 
-DIV.alump-dbar-right {
+    display: inline-block;
+    min-width: 30px;    
     border-radius: 0px 15px 15px 0px;	
 	
     transition: width 2s;

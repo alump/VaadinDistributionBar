@@ -15,9 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.alump.distributionbar.widgetset.client.ui;
+package org.vaadin.alump.distributionbar.widgetset.client.ui.dom;
 
 import java.util.List;
+
+import org.vaadin.alump.distributionbar.widgetset.client.ui.GwtDistributionBar;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -26,8 +28,22 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
 /**
- * Element builder contains all DOM tree functionality of GwtDistributionBar.
- * This to allow overriding functionality for different browsers.
+ * This is help class for GwtDistributionBar and so is designed to be used
+ * only by it.
+ * 
+ * All DOM tree manipulation functionalities are in this class to allow user
+ * agent specific implementations later. To make user agent specific
+ * implementation do following steps:
+ * 
+ * 1) implement new class which extends this class (e.g. IE6ElementBuilder)
+ * 
+ * 2) override methods you want to change (e.g. disable widget to overriding
+ *    methods with empty methods, as in IE6ElementBuilder)
+ * 
+ * 3) update DistributionBarWidgetset.gwt.xml
+ * 
+ * 4) recompile widgetset and try out with browser you selected. Please submit
+ *    patches which will extend support of browsers.
  */
 public class ElementBuilder {
 	
@@ -38,8 +54,15 @@ public class ElementBuilder {
 	protected static final String UNINITIALIZED_VALUE_CLASSNAME =
 			GwtDistributionBar.CLASSNAME + "-uninitizalized";
 	
+	/**
+	 * Parent is needed to get access to DOM tree
+	 */
 	protected GwtDistributionBar parent;
 	
+	/**
+	 * Empty constructor for GWT.create. setParent must be called always after
+	 * this to have instance correctly initialized.
+	 */
 	public ElementBuilder() {
 		
 	}
@@ -49,11 +72,15 @@ public class ElementBuilder {
 	 * constructor to allow replacement creation easily with GWT.create()
 	 * @param parent Parent using builder. Used to access DOM tree.
 	 */
-	protected void setParent (GwtDistributionBar parent) {
+	public void setParent (GwtDistributionBar parent) {
 		this.parent = parent;
 	}
 	
-	protected int getFullWidth () {
+	/**
+	 * Return full width of root element. Used to calculate width of parts.
+	 * @return Full width of the root element in pixels.
+	 */
+	public int getFullWidth () {
 		return parent.getElement().getOffsetWidth();
 	}
 	
@@ -61,7 +88,7 @@ public class ElementBuilder {
 	 * Get element where parts are added
 	 * @return
 	 */
-	protected Element getParentElementForParts() {
+	public Element getParentElementForParts() {
 		return parent.getElement();
 	}
 	
@@ -70,7 +97,7 @@ public class ElementBuilder {
 	 * override functions above this.
 	 * @return Element for first part which has other parts as siblings
 	 */
-	protected Element getFirstPartElement () {
+	public Element getFirstPartElement () {
 		return getParentElementForParts().getFirstChildElement();
 	}
 	
@@ -78,7 +105,7 @@ public class ElementBuilder {
 	 * Initialize root element of distribution bar
 	 * @return Root element initialized
 	 */
-	protected Element initRootElement() {
+	public Element initRootElement() {
 		
 		Element element = parent.getElement();
 		
@@ -98,7 +125,13 @@ public class ElementBuilder {
 		return element;
 	}
 	
-	protected String generatePartStyleName (int index, int parts) {
+	/**
+	 * Generate class name for given part
+	 * @param index Index of part (useful for left/middle/right)
+	 * @param parts Number of parts totally (useful for left/middle/right)
+	 * @return Class name for the part element
+	 */
+	public String generatePartClassName (int index, int parts) {
 		String styleName = GwtDistributionBar.CLASSNAME;
 		
 		// Allows styling like rounded corners
@@ -121,15 +154,12 @@ public class ElementBuilder {
 	 * @param parts Number of parts
 	 * @param size Size of part added
 	 * @param title Title of part added
-	 * @return Element of part added
 	 */
-	protected Element addPartElement (int index, int parts, int size,
+	public void addPartElement (int index, int parts, int size,
 		String title) {
-		
-		String styleName = generatePartStyleName (index, parts);
-		
+				
 		Element element = createPartElement ();
-		element.setAttribute("class", styleName);
+		element.setAttribute("class", generatePartClassName (index, parts));
 		element.setAttribute("title", title);
 		
 		Element textElem = Document.get().createSpanElement();
@@ -139,14 +169,12 @@ public class ElementBuilder {
 		element.appendChild(textElem);
 		
 		getParentElementForParts().appendChild(element);
-		
-		return element;
 	}
 	
 	/**
 	 * Add warning text shown if distribution bar is used uninitialized
 	 */
-	protected void addUninitializedWarning() {
+	public void addUninitializedWarning() {
 		
 		Element element = createPartElement ();
 		
@@ -163,7 +191,7 @@ public class ElementBuilder {
 	 * @param index Index of part [0..N]. Use only valid indexes.
 	 * @return Element of part.
 	 */
-	protected Element getPartElement (int index) {
+	public Element getPartElement (int index) {
 		Element element = getFirstPartElement ();
 		
 		for (int i = 0; i < index && element != null; ++i) {
@@ -173,7 +201,12 @@ public class ElementBuilder {
 		return element;
 	}
 	
-	protected void changePartTitle(int index, String title) {
+	/**
+	 * Change part title to given string
+	 * @param index Index of part modified
+	 * @param title New title (can be empty)
+	 */
+	public void changePartTitle(int index, String title) {
 		Element element = getPartElement (index);
 		
 		if (element != null) {
@@ -192,7 +225,7 @@ public class ElementBuilder {
 	 * Update DOM presentation of distribution. This has to be called always
 	 * after changes are done to parts.
 	 */
-	protected void updateParts(List<Integer> sizes) {
+	public void updateParts(List<Integer> sizes) {
 		
 		int totalSize = parent.totalSize();
 		
@@ -219,7 +252,7 @@ public class ElementBuilder {
 	 * @param part How many parts there are
 	 * @param parentSize Size of parent in pixels
 	 */
-	protected void setPartElementSize (Element part, double size, double total,
+	public void setPartElementSize (Element part, double size, double total,
 		double parts, double parentSize) {
 		
 		double elementSize = 0.0;
@@ -247,13 +280,23 @@ public class ElementBuilder {
 		setPartElementValueText (part, String.valueOf(size));
 	}
 	
-	protected void setPartElementWidth (Element element, double width,
+	/**
+	 * Change the width of part element
+	 * @param element Part element changed
+	 * @param width New width value
+	 * @param unit New width unit
+	 */
+	public void setPartElementWidth (Element element, double width,
 		Style.Unit unit) {
 		
 		element.getStyle().setWidth(width, unit);
 	}
 	
-	protected Element createPartElement () {
+	/**
+	 * Simple function that return element used to represent part.
+	 * @return Element used to represent the element
+	 */
+	public Element createPartElement () {
 		return Document.get().createDivElement();
 	}
 	
@@ -262,7 +305,7 @@ public class ElementBuilder {
 	 * @param element Part element given
 	 * @param text Text shown
 	 */
-	protected void setPartElementValueText (Element element, String text) {
+	public void setPartElementValueText (Element element, String text) {
 		Element textElem = element.getFirstChildElement();
 		textElem.setInnerText(text);
 	}

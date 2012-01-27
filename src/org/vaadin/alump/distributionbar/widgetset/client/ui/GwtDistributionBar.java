@@ -20,6 +20,8 @@ package org.vaadin.alump.distributionbar.widgetset.client.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.vaadin.alump.distributionbar.widgetset.client.ui.dom.ElementBuilder;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -38,7 +40,7 @@ public class GwtDistributionBar extends Widget {
 	/**
 	 * Class name
 	 */
-	protected static final String CLASSNAME = "alump-dbar";
+	public static final String CLASSNAME = "alump-dbar";
 	
 	/**
 	 * List of sizes of parts
@@ -53,13 +55,16 @@ public class GwtDistributionBar extends Widget {
 	/**
 	 * Default size of part before it is defined
 	 */
-	protected static final int DEFAULT_VALUE = 0;
+	private static final int DEFAULT_VALUE = 0;
 	
 	/**
 	 * Default title used
 	 */
-	protected static final String DEFAULT_TITLE = new String();
+	private static final String DEFAULT_TITLE = new String();
 	
+	/**
+	 * Instance that will take care of all DOM tree manipulations
+	 */
 	private final ElementBuilder builder;
 	
 	/**
@@ -69,6 +74,10 @@ public class GwtDistributionBar extends Widget {
 		
 		sizes = new ArrayList<Integer>();
 		
+		/* GWT.create used here to allow replacement class for the element
+		 * builder. To optimize performance this can be changed to use direct
+		 * constructor if no useragent specific implementations are used.
+		 */
 		builder = GWT.create(ElementBuilder.class);
 		builder.setParent(this);
 		builder.initRootElement();
@@ -173,10 +182,11 @@ public class GwtDistributionBar extends Widget {
 	}
 	
 	/**
-	 * This to allow builders to change the structure of widget
+	 * This to allow builders to change the structure of widget. Only to be
+	 * called by ElementBuilder or classes extending it.
 	 * @param element New root element
 	 */
-	protected void setRootElement (Element element) {
+	public void setRootElement (Element element) {
 		setElement (element);
 	}
 
