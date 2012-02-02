@@ -35,7 +35,7 @@ import com.vaadin.ui.AbstractComponent;
 @com.vaadin.ui.ClientWidget(org.vaadin.alump.distributionbar.widgetset.client.ui.VDistributionBar.class)
 public class DistributionBar extends AbstractComponent {
 	
-	private static final long serialVersionUID = 1840214890551792549L;
+	private static final long serialVersionUID = -3581161316003689470L;
 	private List<Part> parts;
 	
 	/**
@@ -45,9 +45,11 @@ public class DistributionBar extends AbstractComponent {
 		
 		private int size;
 		private String title;
+		private String tooltip;
 		
 		public Part() {
 			title = new String();
+			tooltip = new String();
 		}
 		
 		@SuppressWarnings("unused")
@@ -70,6 +72,14 @@ public class DistributionBar extends AbstractComponent {
 		
 		public String getTitle () {
 			return title;
+		}
+		
+		public void setTooltip (String tooltip) {
+			this.tooltip = tooltip;
+		}
+		
+		public String getTooltip () {
+			return tooltip;
 		}
 	}
 	
@@ -111,10 +121,12 @@ public class DistributionBar extends AbstractComponent {
 		target.addAttribute("parts", parts.size());
 		for (int i = 0; i < parts.size(); ++i) {
 			Part part = parts.get(i);
-			target.addAttribute ("partsize-" + String.valueOf(i),
+			target.addAttribute ("psize-" + String.valueOf(i),
 				part.getSize());
-			target.addAttribute ("parttitle-" + String.valueOf(i),
+			target.addAttribute ("ptitle-" + String.valueOf(i),
 				part.getTitle());
+			target.addAttribute ("ptooltip-" + String.valueOf(i),
+				part.getTooltip());
 		}
 	}
 
@@ -143,34 +155,46 @@ public class DistributionBar extends AbstractComponent {
 		requestRepaint();
 	}
 	
-	/**
-	 * Change size of given part
-	 * @param index Index of part [0..N]. Only give valid indexes. Invalids will
-	 * be ignored.
-	 * @param size Size as integer number
-	 */
-	public void setPartSize (int index, int size) {
-		try {
-			Part part = parts.get(index); 
-			part.setSize(size);
-			requestRepaint();
-		} catch (IndexOutOfBoundsException exception) {
-		}
+	public void setupPart (int index, int size, String tooltip) {
+		Part part = parts.get(index); 
+		part.setSize(size);
+		part.setTooltip(tooltip);
+		requestRepaint();
 	}
 	
 	/**
-	 * Change title of given part
-	 * @param index Index of part [0..N]. Only give valid indexes. Invalid index
-	 * values will be ignored.
+	 * Change size of given part
+	 * @param index Index of part [0..N]. Only give valid indexes.
+	 * @param size Size as integer number
+	 */
+	public void setPartSize (int index, int size) {
+		Part part = parts.get(index); 
+		part.setSize(size);
+		requestRepaint();
+	}
+	
+	/**
+	 * Change title of given part. This is normal HTML title attribute. For
+	 * many use cases tooltip is better option.
+	 * @param index Index of part [0..N]. Only give valid indexes.
 	 * @param title Title for part
 	 */
 	public void setPartTitle (int index, String title) {
-		try {
-			Part part = parts.get(index); 
-			part.setTitle(title);
-			requestRepaint();
-		} catch (IndexOutOfBoundsException exception) {
-		}
+		Part part = parts.get(index); 
+		part.setTitle(title);
+		requestRepaint();
+	}
+	
+	/**
+	 * Change tooltip of given part.
+	 * @param index Index of part [0..N]. Only give valid indexes.
+	 * @param tooltip Content of tooltip (empty is do not show tooltip). Content
+	 * is given in XHTML format.
+	 */
+	public void setPartTooltip (int index, String tooltip) {
+		Part part = parts.get(index); 
+		part.setTooltip(tooltip);
+		requestRepaint();
 	}
 	
 	/**

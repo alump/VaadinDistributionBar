@@ -31,7 +31,7 @@ import com.vaadin.ui.Window;
 
 public class DistributionBarDemoApplication extends Application {
 	
-	private static final long serialVersionUID = -8067082130120161624L;
+	private static final long serialVersionUID = -2473123168493326044L;
 	private DistributionBar barOne;
 	private DistributionBar barTwo;
 	private DistributionBar barThree;
@@ -62,10 +62,10 @@ public class DistributionBarDemoApplication extends Application {
 		layout.setSizeFull();
 		layout.setSpacing(true);
 		
-		Label header = new Label ("Distribution Bar Demo");
+		Label header = new Label ("Distribution Bar Demo! Remember to push the button! Tooltips are shown when you move mouse above the distribution bars. Not all parts have tooltips in this demo.");
 		layout.addComponent(header);
 		
-		Button randomButton = new Button("Click here to update the bars values");
+		Button randomButton = new Button("Click here to update the bars values and tooltips");
 		randomButton.addListener(randomButtonListener);
 		layout.addComponent(randomButton);
 		
@@ -73,8 +73,11 @@ public class DistributionBarDemoApplication extends Application {
 		barOne.setCaption("Senate:");
 		barOne.setWidth("100%");
 		barOne.addStyleName("my-bar-one");
-		barOne.setPartTitle(0, "Republican Party");
-		barOne.setPartTitle(1, "Democratic Party");
+		barOne.setPartTooltip(0, "Republican Party");
+		barOne.setPartTooltip(1, "Democratic Party");
+		//to see the glow from css (this can be done better too, but this is
+		//good enough hack for demo)
+		barOne.setHeight("40px");
 		layout.addComponent(barOne);
 		layout.setComponentAlignment(barOne, Alignment.MIDDLE_CENTER);
 		
@@ -82,6 +85,10 @@ public class DistributionBarDemoApplication extends Application {
 		barTwo.setCaption("Do people like nicer backgrounds?");
 		barTwo.setWidth("100%");
 		barTwo.addStyleName("my-bar-two");
+		// REMEMBER THAT tooltip is XHTML! Escape < and >!
+		barTwo.setPartTooltip(0, "Check the one on the right-&gt;");
+		barTwo.setPartTooltip(1, "<img src=\"http://alump.iki.fi/avatar.png\" />");
+		barTwo.setPartTooltip(2, "&lt;- Check the one on the left");
 		layout.addComponent(barTwo);
 		layout.setComponentAlignment(barTwo, Alignment.MIDDLE_CENTER);
 		
@@ -96,6 +103,7 @@ public class DistributionBarDemoApplication extends Application {
 		barFour.setCaption("CSS tricks");
 		barFour.setWidth("100%");
 		barFour.addStyleName("my-bar-four");
+		barFour.setPartTooltip(BAR_FOUR_PARTS-1, "Wow! You found this.");
 		layout.addComponent(barFour);
 		layout.setComponentAlignment(barFour, Alignment.MIDDLE_CENTER);
 		
@@ -103,7 +111,10 @@ public class DistributionBarDemoApplication extends Application {
 		barFive.setCaption("Vote results:");
 		barFive.setWidth("100%");
 		barFive.addStyleName("my-bar-five");
-		barFive.setPartTitle(0, "YES!");
+		barFive.setPartTooltip(0,
+			"<span style=\"color: green; font-size: 200%; font-weight: bold;\">YES! I LIKE IT!</span>");
+		barFive.setPartTooltip(1,
+				"<span style=\"color: red; font-size: 200%; font-weight: bold;\">NO WAY!</span>");		
 		barFive.setPartTitle(1, "NO!");
 		layout.addComponent(barFive);
 		layout.setComponentAlignment(barFive, Alignment.MIDDLE_CENTER);
@@ -128,21 +139,28 @@ public class DistributionBarDemoApplication extends Application {
 			public void buttonClick(ClickEvent event) {
 				
 				Random random = new Random();
-				
 
 				int chairs = 100;
 				int groupA = random.nextInt(chairs);
 				
 				barOne.setPartSize(0, groupA);
+				barOne.setPartTooltip(0,
+					"<b>Republican Party: " + groupA + " seats</b><br/>"
+					+ "Lorem ipsum...<br/>...ipsum Lorem.");
 				barOne.setPartSize(1, chairs - groupA);
-
+				barOne.setPartTooltip(1,
+					"<b>Democratic Party: " + (chairs - groupA)
+					+  " seats</b><br/>Lorem ipsum...<br/>...ipsum Lorem.");
 				
 				for (int i = 0; i < BAR_TWO_PARTS; ++i) {
 					barTwo.setPartSize(i, random.nextInt(20));
 				}
 				
 				for (int i = 0; i < BAR_THREE_PARTS; ++i) {
-					barThree.setPartSize(i, random.nextInt(50));
+					int value = random.nextInt(50);
+					barThree.setPartSize(i, value);
+					barThree.setPartTooltip(i,
+						"part" + i + ", with size: " + value);
 				}
 				
 				for (int i = 0; i < BAR_FOUR_PARTS; ++i) {

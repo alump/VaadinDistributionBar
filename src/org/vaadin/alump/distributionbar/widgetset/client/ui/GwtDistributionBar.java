@@ -71,7 +71,7 @@ public class GwtDistributionBar extends Widget {
 	 * Constructor
 	 */
 	public GwtDistributionBar() {
-		
+				
 		sizes = new ArrayList<Integer>();
 		
 		/* GWT.create used here to allow replacement class for the element
@@ -172,6 +172,15 @@ public class GwtDistributionBar extends Widget {
 	 */
 	public void setPartTitle (int index, String title) {
 		builder.changePartTitle(index, title);
+	}
+	
+	/**
+	 * Change tooltip attribute of part element.
+	 * @param index Index of part which tooltip is changed
+	 * @param content Tooltip content in XHTML
+	 */
+	public void setPartTooltip (int index, String content) {
+		builder.changePartTooltip(index, content);
 	}
 	
 	/**

@@ -25,6 +25,9 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
 /**
@@ -60,6 +63,11 @@ public class ElementBuilder {
 	protected GwtDistributionBar parent;
 	
 	/**
+	 * Tool tip presenter. Constructed in setParent.
+	 */
+	protected ToolTipPresenter tooltip;
+	
+	/**
 	 * Empty constructor for GWT.create. setParent must be called always after
 	 * this to have instance correctly initialized.
 	 */
@@ -74,6 +82,11 @@ public class ElementBuilder {
 	 */
 	public void setParent (GwtDistributionBar parent) {
 		this.parent = parent;
+		
+		tooltip = new ToolTipPresenter();
+		parent.addDomHandler(tooltip, MouseOutEvent.getType());
+		parent.addDomHandler(tooltip, MouseOverEvent.getType());
+		parent.addDomHandler(tooltip, MouseMoveEvent.getType());
 	}
 	
 	/**
@@ -110,6 +123,8 @@ public class ElementBuilder {
 		Element element = parent.getElement();
 		
 		if (element != null) {
+			
+			tooltip.clearAllToolTips();
 			
 			Element child = null;
 			while ((child = element.getFirstChildElement()) != null) {
@@ -217,6 +232,18 @@ public class ElementBuilder {
 			} else {
 				String safe = SafeHtmlUtils.htmlEscape(title);
 				element.setAttribute("title", safe);
+			}
+		}
+	}
+	
+	public void changePartTooltip(int index, String content) {
+		Element element = getPartElement (index);
+		
+		if (element != null) {
+			if (content.isEmpty()) {
+				tooltip.removeToolTip(element);
+			} else {
+				tooltip.setToolTip(element, content);
 			}
 		}
 	}

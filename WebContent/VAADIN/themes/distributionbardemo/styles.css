@@ -11,11 +11,27 @@
 	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
 }
 
+.my-bar-one .alump-dbar-part-1:hover {
+	background-color: rgb(75%,0%,0%);
+	font-weight: bold;
+	box-shadow: 0px 0px 4px 4px rgba(75%,0%,0%,0.5);  
+    -moz-box-shadow: 0px 0px 4px 4px rgba(75%,0%,0%,0.5);
+    -webkit-box-shadow: 0px 0px 4px 4px rgba(75%,0%,0%,0.5);
+}
+
 .my-bar-one .alump-dbar-part-2 {
     background-image: none;
     background-color: rgb(0%,0%,50%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+
+.my-bar-one .alump-dbar-part-2:hover {
+    background-color: rgb(0%,0%,75%);
+    font-weight: bold;
+    box-shadow: 0px 0px 4px 4px rgba(0%,0%,75%,0.5);  
+    -moz-box-shadow: 0px 0px 4px 4px rgba(0%,0%,75%,0.5);
+    -webkit-box-shadow: 0px 0px 4px 4px rgba(0%,0%,75%,0.5);
 }
 
 .my-bar-two {

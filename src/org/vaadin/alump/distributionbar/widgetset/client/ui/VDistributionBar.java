@@ -38,12 +38,17 @@ public class VDistributionBar extends GwtDistributionBar implements Paintable {
 	/**
 	 * Attribute prefix for part sizes
 	 */
-	private static final String ATTR_PREFIX_PARTSIZE = "partsize-";
+	private static final String ATTR_PREFIX_PARTSIZE = "psize-";
 	
 	/**
 	 * Attribute prefix for part titles
 	 */
-	private static final String ATTR_PREFIX_PARTTITLE = "parttitle-";
+	private static final String ATTR_PREFIX_PARTTITLE = "ptitle-";
+	
+	/**
+	 * Attribute prefix for part tooltip
+	 */
+	private static final String ATTR_PREFIX_PARTTOOLTIP = "ptooltip-";
 
 	/**
 	 * Constructor
@@ -78,6 +83,11 @@ public class VDistributionBar extends GwtDistributionBar implements Paintable {
 				attribute = ATTR_PREFIX_PARTTITLE + indexStr;
 				if (uidl.hasAttribute(attribute)) {
 					setPartTitle (i, uidl.getStringAttribute(attribute));
+				}
+				
+				attribute = ATTR_PREFIX_PARTTOOLTIP + indexStr;
+				if (uidl.hasAttribute(attribute)) {
+					setPartTooltip (i, uidl.getStringAttribute(attribute));
 				}
 			}
 			
