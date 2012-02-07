@@ -1,5 +1,5 @@
 /**
- * IE6ElementBuilder.java (VaadinDistributionBar)
+ * IE6ElementBuilder.java (DistributionBar)
  *
  * Copyright 2012 Sami Viitanen <sami.viitanen@gmail.com>
  * All rights reserved.

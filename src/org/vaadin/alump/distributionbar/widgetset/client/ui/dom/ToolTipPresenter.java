@@ -1,5 +1,5 @@
 /**
- * GwtToolTipPresenter.java (VaadinDistributionBar)
+ * GwtToolTipPresenter.java (DistributionBar)
  *
  * Copyright 2012 Sami Viitanen <sami.viitanen@gmail.com>
  * All rights reserved.

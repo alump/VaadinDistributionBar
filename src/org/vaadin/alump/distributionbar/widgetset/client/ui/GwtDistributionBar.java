@@ -1,5 +1,5 @@
 /**
- * GwtDistributionBar.java (VaadinDistributionBar)
+ * GwtDistributionBar.java (DistributionBar)
  * 
  * Copyright 2012 Vaadin Ltd, Sami Viitanen <alump@vaadin.org>
  *

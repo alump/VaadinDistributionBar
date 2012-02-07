@@ -1,5 +1,5 @@
 /**
- * ElementBuilder.java (VaadinDistributionBar)
+ * ElementBuilder.java (DistributionBar)
  * 
  * Copyright 2012 Vaadin Ltd, Sami Viitanen <alump@vaadin.org>
  *

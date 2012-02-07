@@ -1,5 +1,5 @@
 /**
- * VDistributionBar.java (VaadinDistributionBar)
+ * VDistributionBar.java (DistributionBar)
  * 
  * Copyright 2012 Vaadin Ltd, Sami Viitanen <alump@vaadin.org>
  *

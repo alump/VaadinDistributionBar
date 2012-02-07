@@ -1,5 +1,5 @@
 /**
- * DistributionBar.java (VaadinDistributionBar)
+ * DistributionBar.java (DistributionBar)
  * 
  * Copyright 2012 Vaadin Ltd, Sami Viitanen <alump@vaadin.org>
  *
@@ -35,7 +35,7 @@ import com.vaadin.ui.AbstractComponent;
 @com.vaadin.ui.ClientWidget(org.vaadin.alump.distributionbar.widgetset.client.ui.VDistributionBar.class)
 public class DistributionBar extends AbstractComponent {
 	
-	private static final long serialVersionUID = -3581161316003699470L;
+	private static final long serialVersionUID = -3585161316003999470L;
 	private List<Part> parts;
 	
 	/**

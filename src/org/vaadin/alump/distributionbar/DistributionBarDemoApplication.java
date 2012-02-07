@@ -1,5 +1,5 @@
 /**
- * DistributionBarDemoApplication.java (VaadinDistributionBar)
+ * DistributionBarDemoApplication.java (DistributionBar)
  * 
  * Copyright 2012 Vaadin Ltd, Sami Viitanen <alump@vaadin.org>
  *
@@ -31,7 +31,7 @@ import com.vaadin.ui.Window;
 
 public class DistributionBarDemoApplication extends Application {
 	
-	private static final long serialVersionUID = -2473123178493326044L;
+	private static final long serialVersionUID = -2473125178493326044L;
 	private DistributionBar barOne;
 	private DistributionBar barTwo;
 	private DistributionBar barThree;
@@ -51,7 +51,7 @@ public class DistributionBarDemoApplication extends Application {
 		
 		setTheme ("distributionbardemo");
 		
-		Window mainWindow = new Window("Vaadin Distribution Bar Demo (0.3.1)");
+		Window mainWindow = new Window("Distribution Bar Demo (0.3.2)");
 		mainWindow.addComponent(buildView());
 		setMainWindow(mainWindow);
 	}

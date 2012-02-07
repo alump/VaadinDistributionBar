@@ -1,0 +1,62 @@
+// This is simplified example version. It will generate distribution bar that
+// will present the split of senate seats between two parties. CSS is used to
+// select suitable colors and to add hover effect when tooltip is shown.
+// Tooltip is used to tell what selected part of distribution bar is actually
+// presenting.
+
+// -----------------------------------------------------------------------------
+// Java file
+// -----------------------------------------------------------------------------
+
+DistributionBar barOne = new DistributionBar(1);
+barOne.setCaption("Senate:");
+barOne.setWidth("100%");
+barOne.addStyleName("my-bar-one");
+layout.addComponent(barOne);
+layout.setComponentAlignment(barOne, Alignment.MIDDLE_CENTER);
+
+//...
+// Updating the values (vote results) with random numbers
+//...
+
+Random random = new Random();
+int seats = 100;
+int groupA = random.nextInt(seats);
+barOne.setPartSize(0, groupA);
+barOne.setPartTooltip(0, "<b>Republican Party: " + groupA + " seats</b><br/>"
+    + "More information can be also shown here!");
+barOne.setPartSize(1, seats - groupA);
+barOne.setPartTooltip(1, "<b>Democratic Party: " + (seats - groupA)
+    + " seats</b><br/>More information can be also shown here!");
+
+// -----------------------------------------------------------------------------
+// CSS file
+// -----------------------------------------------------------------------------
+
+.my-bar-one {
+	max-width: 800px;
+}
+
+.my-bar-one .alump-dbar-part-1 {
+	background-image: none;
+    background-color: rgb(50%,0%,0%);
+	color: white;
+	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+
+.my-bar-one .alump-dbar-part-1:hover {
+	background-color: rgb(75%,0%,0%);
+	font-weight: bold;
+}
+
+.my-bar-one .alump-dbar-part-2 {
+    background-image: none;
+    background-color: rgb(0%,0%,50%);
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+}
+
+.my-bar-one .alump-dbar-part-2:hover {
+    background-color: rgb(0%,0%,75%);
+    font-weight: bold;
+}
