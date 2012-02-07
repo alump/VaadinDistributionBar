@@ -133,7 +133,7 @@ public class ElementBuilder {
 		
 		} else {
 			element = Document.get().createDivElement();
-			element.setAttribute("class", GwtDistributionBar.CLASSNAME);
+			element.setClassName(GwtDistributionBar.CLASSNAME);
 			parent.setRootElement (element);
 		}
 		
@@ -141,12 +141,12 @@ public class ElementBuilder {
 	}
 	
 	/**
-	 * Generate class name for given part
+	 * Generate class names for element
+	 * @param element Element that will get new class names
 	 * @param index Index of part (useful for left/middle/right)
 	 * @param parts Number of parts totally (useful for left/middle/right)
-	 * @return Class name for the part element
 	 */
-	public String generatePartClassName (int index, int parts) {
+	public void setPartClassNames (Element element, int index, int parts) {
 		String styleName = GwtDistributionBar.CLASSNAME;
 		
 		// Allows styling like rounded corners
@@ -158,9 +158,8 @@ public class ElementBuilder {
 			styleName += "-middle";
 		}
 		
-		styleName += " " + PART_CLASSNAME_PREFIX + String.valueOf(index+1);
-		
-		return styleName;
+		element.setClassName(styleName);
+		element.addClassName(PART_CLASSNAME_PREFIX + String.valueOf(index+1));
 	}
 	
 	/**
@@ -174,11 +173,11 @@ public class ElementBuilder {
 		String title) {
 				
 		Element element = createPartElement ();
-		element.setAttribute("class", generatePartClassName (index, parts));
+		setPartClassNames (element, index, parts);
 		element.setAttribute("title", title);
 		
 		Element textElem = Document.get().createSpanElement();
-		textElem.setAttribute("class", PART_VALUE_CLASSNAME);
+		textElem.setClassName(PART_VALUE_CLASSNAME);
 		textElem.setInnerText(String.valueOf(size));
 		
 		element.appendChild(textElem);
@@ -194,7 +193,7 @@ public class ElementBuilder {
 		Element element = createPartElement ();
 		
 		Element content = Document.get().createSpanElement();
-		content.setAttribute("class", UNINITIALIZED_VALUE_CLASSNAME);
+		content.setClassName(UNINITIALIZED_VALUE_CLASSNAME);
 		content.setInnerText("uninitialized");
 		element.appendChild(content);
 		

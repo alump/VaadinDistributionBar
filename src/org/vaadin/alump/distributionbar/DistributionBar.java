@@ -35,7 +35,7 @@ import com.vaadin.ui.AbstractComponent;
 @com.vaadin.ui.ClientWidget(org.vaadin.alump.distributionbar.widgetset.client.ui.VDistributionBar.class)
 public class DistributionBar extends AbstractComponent {
 	
-	private static final long serialVersionUID = -3581161316003689470L;
+	private static final long serialVersionUID = -3581161316003699470L;
 	private List<Part> parts;
 	
 	/**
@@ -155,6 +155,12 @@ public class DistributionBar extends AbstractComponent {
 		requestRepaint();
 	}
 	
+	/**
+	 * Setup part by defining both size and tooltip with one command
+	 * @param index Index of part [0..N]. Only give valid indexes.
+	 * @param size Size as integer number
+	 * @param tooltip Tooltip content is XHTML
+	 */
 	public void setupPart (int index, int size, String tooltip) {
 		Part part = parts.get(index); 
 		part.setSize(size);
