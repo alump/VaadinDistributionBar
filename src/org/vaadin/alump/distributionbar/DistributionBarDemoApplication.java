@@ -75,9 +75,6 @@ public class DistributionBarDemoApplication extends Application {
 		barOne.addStyleName("my-bar-one");
 		barOne.setPartTooltip(0, "Republican Party");
 		barOne.setPartTooltip(1, "Democratic Party");
-		//to see the glow from css (this can be done better too, but this is
-		//good enough hack for demo)
-		barOne.setHeight("40px");
 		layout.addComponent(barOne);
 		layout.setComponentAlignment(barOne, Alignment.MIDDLE_CENTER);
 		

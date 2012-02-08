@@ -2,6 +2,8 @@
 
 .my-bar-one {
 	max-width: 800px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .my-bar-one .alump-dbar-part-1 {
