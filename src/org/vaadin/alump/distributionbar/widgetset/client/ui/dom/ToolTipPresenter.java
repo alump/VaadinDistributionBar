@@ -24,37 +24,42 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
  * Class that takes care of the tooltip presentation of Distribution Bar. Still
  * under development!
  */
-public class ToolTipPresenter implements MouseOverHandler,
-	MouseOutHandler, MouseMoveHandler {
-	
+public class ToolTipPresenter implements MouseOverHandler, MouseOutHandler,
+		MouseMoveHandler {
+
 	private final HashMap<Element, String> tooltips;
 	private Element currentToolTip;
 	private Element currentHoverElement;
-	
+
 	public ToolTipPresenter() {
 		tooltips = new HashMap<Element, String>();
 	}
-	
+
 	/**
 	 * Change tool tip content
-	 * @param element Element which tooltip is changed
-	 * @param content New content in XHTML
+	 * 
+	 * @param element
+	 *            Element which tooltip is changed
+	 * @param content
+	 *            New content in XHTML
 	 */
-	public void setToolTip (Element element, String content) {
+	public void setToolTip(Element element, String content) {
 		tooltips.put(element, content);
 	}
-	
+
 	/**
 	 * Remove defined tooltip
-	 * @param element Element containing the tooltip
+	 * 
+	 * @param element
+	 *            Element containing the tooltip
 	 */
-	public void removeToolTip (Element element) {
+	public void removeToolTip(Element element) {
 		if (currentHoverElement == element) {
 			removeCurrentToolTip();
 		}
 		tooltips.remove(element);
 	}
-	
+
 	/**
 	 * Clear all tool tips defined. Useful if distribution bar is restructured.
 	 */
@@ -62,49 +67,54 @@ public class ToolTipPresenter implements MouseOverHandler,
 		removeCurrentToolTip();
 		tooltips.clear();
 	}
-	
-	public boolean hasToolTipForElement (Element element) {
+
+	public boolean hasToolTipForElement(Element element) {
 		return tooltips.containsKey(element);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.MouseOverHandler#onMouseOver(com.google.gwt.event.dom.client.MouseOverEvent)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.MouseOverHandler#onMouseOver(com.google
+	 * .gwt.event.dom.client.MouseOverEvent)
 	 */
+	@Override
 	public void onMouseOver(MouseOverEvent event) {
-		
+
 		Element target = Element.as(event.getNativeEvent().getEventTarget());
-		
+
 		if (target == currentHoverElement) {
 			return;
-		} else if (hasToolTipForElement (target) == false) {
+		} else if (hasToolTipForElement(target) == false) {
 			removeCurrentToolTip();
 			return;
 		}
-		
+
 		removeCurrentToolTip();
 		currentHoverElement = target;
-		generateTooltip ();
-	
+		generateTooltip();
+
 	}
-	
+
 	/**
 	 * Generate new tooltip to document. Make sure currentHoverElement is set
 	 * before this is called.
 	 */
-	protected void generateTooltip () {
-		
+	protected void generateTooltip() {
+
 		currentToolTip = Document.get().createDivElement();
 		currentToolTip.setClassName("alump-dbar-tooltip");
-		
+
 		currentToolTip.setInnerHTML(tooltips.get(currentHoverElement));
-		
+
 		Document.get().getBody().appendChild(currentToolTip);
-		
+
 		currentToolTip.getStyle().setPosition(Position.ABSOLUTE);
-		
-		changeTooltipPosition (currentHoverElement);		
+
+		changeTooltipPosition(currentHoverElement);
 	}
-	
+
 	/**
 	 * Removes current tooltip from document
 	 */
@@ -116,23 +126,30 @@ public class ToolTipPresenter implements MouseOverHandler,
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.MouseOutHandler#onMouseOut(com.google.gwt.event.dom.client.MouseOutEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.MouseOutHandler#onMouseOut(com.google
+	 * .gwt.event.dom.client.MouseOutEvent)
 	 */
+	@Override
 	public void onMouseOut(MouseOutEvent event) {
-		
-		//Always remove tooltip if we move outside
+
+		// Always remove tooltip if we move outside
 		removeCurrentToolTip();
-		
+
 	}
-	
+
 	/**
 	 * Adds isOrHasChild aspect to HashMap search
-	 * @param target Element searched (will accept if target is child of defined
-	 * element).
+	 * 
+	 * @param target
+	 *            Element searched (will accept if target is child of defined
+	 *            element).
 	 * @return Defined element or null if not found.
 	 */
-	protected Element findMathingElement (Element target) {
+	protected Element findMathingElement(Element target) {
 		if (tooltips.containsKey(target)) {
 			return target;
 		} else {
@@ -144,62 +161,67 @@ public class ToolTipPresenter implements MouseOverHandler,
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
-	private void changeTooltipPosition (Element element) {
-		
+
+	private void changeTooltipPosition(Element element) {
+
 		int left = element.getAbsoluteLeft();
-		int right = Document.get().getClientWidth() -
-			element.getAbsoluteRight();
-						
+		int right = Document.get().getClientWidth()
+				- element.getAbsoluteRight();
+
 		if (element.getAbsoluteLeft() <= right) {
-			currentToolTip.getStyle().setLeft(left,	Unit.PX);
+			currentToolTip.getStyle().setLeft(left, Unit.PX);
 		} else {
 			int width = currentToolTip.getOffsetWidth();
-			
-			currentToolTip.getStyle().setLeft (element.getAbsoluteRight() -
-				width, Unit.PX);
+
+			currentToolTip.getStyle().setLeft(
+					element.getAbsoluteRight() - width, Unit.PX);
 		}
-		
+
 		int top = element.getAbsoluteTop();
-		int bottom = Document.get().getClientHeight() -
-			element.getAbsoluteBottom();
-		
+		int bottom = Document.get().getClientHeight()
+				- element.getAbsoluteBottom();
+
 		if (top <= bottom) {
 			currentToolTip.getStyle().clearBottom();
 			currentToolTip.getStyle().setTop(top + element.getOffsetHeight(),
-				Unit.PX);
+					Unit.PX);
 		} else {
 			currentToolTip.getStyle().clearTop();
-			currentToolTip.getStyle().setBottom(bottom
-				+ element.getOffsetHeight(), Unit.PX);
+			currentToolTip.getStyle().setBottom(
+					bottom + element.getOffsetHeight(), Unit.PX);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.MouseMoveHandler#onMouseMove(com.google.gwt.event.dom.client.MouseMoveEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.MouseMoveHandler#onMouseMove(com.google
+	 * .gwt.event.dom.client.MouseMoveEvent)
 	 */
+	@Override
 	public void onMouseMove(MouseMoveEvent event) {
 		Element target = Element.as(event.getNativeEvent().getEventTarget());
-		
+
 		if (target != currentHoverElement) {
-			currentHoverElement = findMathingElement (target);
+			currentHoverElement = findMathingElement(target);
 			if (currentHoverElement != null) {
 				if (currentToolTip == null) {
-					generateTooltip ();
+					generateTooltip();
 				} else {
-					
-					changeTooltipPosition (currentHoverElement);
-					currentToolTip.setInnerHTML(
-						tooltips.get(currentHoverElement));
+
+					changeTooltipPosition(currentHoverElement);
+					currentToolTip.setInnerHTML(tooltips
+							.get(currentHoverElement));
 				}
 			} else {
 				removeCurrentToolTip();
 			}
 		}
-		
+
 	}
 
 }

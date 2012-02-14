@@ -36,71 +36,83 @@ import com.google.gwt.user.client.ui.Widget;
  * show the size as number and the relative as width of the bar.
  */
 public class GwtDistributionBar extends Widget {
-	
+
 	/**
 	 * Class name
 	 */
 	public static final String CLASSNAME = "alump-dbar";
-	
+
 	/**
 	 * List of sizes of parts
 	 */
 	private final List<Integer> sizes;
-	
+
 	/**
 	 * Timer used to delay recalculation of widths when window is resized
 	 */
-	private Timer delayer;
-	
+	transient private Timer delayer;
+
 	/**
 	 * Default size of part before it is defined
 	 */
 	private static final int DEFAULT_VALUE = 0;
-	
+
 	/**
 	 * Default title used
 	 */
 	private static final String DEFAULT_TITLE = new String();
-	
+
 	/**
 	 * Instance that will take care of all DOM tree manipulations
 	 */
-	private final ElementBuilder builder;
-	
+	transient private ElementBuilder builder;
+
 	/**
 	 * Constructor
 	 */
 	public GwtDistributionBar() {
-				
+
 		sizes = new ArrayList<Integer>();
-		
-		/* GWT.create used here to allow replacement class for the element
-		 * builder. To optimize performance this can be changed to use direct
-		 * constructor if no useragent specific implementations are used.
-		 */
-		builder = GWT.create(ElementBuilder.class);
-		builder.setParent(this);
-		builder.initRootElement();
-		builder.addUninitializedWarning();
-		
+
+		// Make sure builder is initialized when constructor is called
+		getBuilder();
+
 		Window.addResizeHandler(resizeHandler);
 	}
-	
+
+	private ElementBuilder getBuilder() {
+		if (builder == null) {
+			/*
+			 * GWT.create used here to allow replacement class for the element
+			 * builder. To optimize performance this can be changed to use
+			 * direct constructor if no useragent specific implementations are
+			 * used.
+			 */
+			builder = GWT.create(ElementBuilder.class);
+			builder.setParent(this);
+			builder.initRootElement();
+			builder.addUninitializedWarning();
+		}
+
+		return builder;
+	}
+
 	/**
 	 * Handled for resize events of window
 	 */
 	private final ResizeHandler resizeHandler = new ResizeHandler() {
-		
+
+		@Override
 		public void onResize(final ResizeEvent event) {
-			
+
 			// This event handling must be delayed as parent has to be updated
 			// first.
 			if (delayer == null) {
 				delayer = new Timer() {
 					@Override
 					public void run() {
-			    	builder.updateParts(sizes);
-			      }
+						builder.updateParts(sizes);
+					}
 				};
 			} else {
 				delayer.cancel();
@@ -109,94 +121,108 @@ public class GwtDistributionBar extends Widget {
 			delayer.schedule(500);
 		}
 	};
-		
+
 	/***
 	 * Change the number of parts in distributionbar.
-	 * @param parts Number of parts (min 2). If smaller value is given, it is
-	 * converted to 2.
+	 * 
+	 * @param parts
+	 *            Number of parts (min 2). If smaller value is given, it is
+	 *            converted to 2.
 	 */
-	public void setNumberOfParts (int parts) {
-		
+	public void setNumberOfParts(int parts) {
+
 		if (parts < 2) {
 			parts = 2;
 		}
-		
+
 		if (parts == sizes.size()) {
 			return;
 		}
-		
+
 		sizes.clear();
-		builder.initRootElement();
-		
+		getBuilder().initRootElement();
+
 		if (parts < 2) {
 			parts = 2;
 		}
-		
+
 		for (int i = 0; i < parts; ++i) {
-			
+
 			sizes.add(DEFAULT_VALUE);
-			
-			builder.addPartElement (i, parts, DEFAULT_VALUE,
-				DEFAULT_TITLE);			
+
+			builder.addPartElement(i, parts, DEFAULT_VALUE, DEFAULT_TITLE);
 		}
 	}
-	
+
 	/***
 	 * Sum of sizes of parts
+	 * 
 	 * @return Sum of all sizes. Can be zero!
 	 */
-	public int totalSize () {
+	public int totalSize() {
 		int totalSize = 0;
 		for (Integer value : sizes) {
 			totalSize += value;
 		}
 		return totalSize;
 	}
-	
+
 	/**
-	 * Change size of part. Call updateParts after using this function to
-	 * update the DOM structure.
-	 * @param index Index of part [0...N]
-	 * @param size Size as integer
-	 * @param update If true updateParts is called
+	 * Change size of part. Call updateParts after using this function to update
+	 * the DOM structure.
+	 * 
+	 * @param index
+	 *            Index of part [0...N]
+	 * @param size
+	 *            Size as integer
+	 * @param update
+	 *            If true updateParts is called
 	 */
-	public void setPartSize (int index, int size) {
+	public void setPartSize(int index, int size) {
 		sizes.set(index, size);
 	}
-	
+
 	/**
 	 * Change title attribute of part element. Call updateParts after using this
 	 * function to update the DOM structure.
-	 * @param index Index of part [0..N]. Use only valid indexes.
-	 * @param title Title set to title attribute of part DIV element
+	 * 
+	 * @param index
+	 *            Index of part [0..N]. Use only valid indexes.
+	 * @param title
+	 *            Title set to title attribute of part DIV element
 	 */
-	public void setPartTitle (int index, String title) {
-		builder.changePartTitle(index, title);
+	public void setPartTitle(int index, String title) {
+		getBuilder().changePartTitle(index, title);
 	}
-	
+
 	/**
 	 * Change tooltip attribute of part element.
-	 * @param index Index of part which tooltip is changed
-	 * @param content Tooltip content in XHTML
+	 * 
+	 * @param index
+	 *            Index of part which tooltip is changed
+	 * @param content
+	 *            Tooltip content in XHTML
 	 */
-	public void setPartTooltip (int index, String content) {
-		builder.changePartTooltip(index, content);
+	public void setPartTooltip(int index, String content) {
+		getBuilder().changePartTooltip(index, content);
 	}
-	
+
 	/**
 	 * Update part widths by updating the DOM three
 	 */
 	public void updateParts() {
-		builder.updateParts(sizes);
+		getBuilder().updateParts(sizes);
 	}
-	
+
 	/**
 	 * This to allow builders to change the structure of widget. Only to be
 	 * called by ElementBuilder or classes extending it.
-	 * @param element New root element
+	 * 
+	 * @param element
+	 *            New root element
 	 */
-	public void setRootElement (Element element) {
-		setElement (element);
+	public void setRootElement(Element element) {
+		setElement(element);
 	}
 
 }
