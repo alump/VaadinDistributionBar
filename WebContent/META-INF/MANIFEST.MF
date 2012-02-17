@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Implementation-Title: DistributionBar
-Implementation-Version: 0.3.2
+Implementation-Version: 0.3.3
 Vaadin-Package-Version: 1
+Class-Path: 
 Vaadin-Widgetsets: org.vaadin.alump.distributionbar.widgetset.Distribu
  tionBarWidgetset
-Class-Path: 
 

@@ -27,71 +27,71 @@ import com.vaadin.terminal.gwt.client.UIDL;
  */
 public class VDistributionBar extends GwtDistributionBar implements Paintable {
 
-	protected String paintableId;
-	protected ApplicationConnection client;
-	
-	/**
-	 * Attribute name for number of parts
-	 */
-	private static final String ATTR_PARTS = "parts";
-	
-	/**
-	 * Attribute prefix for part sizes
-	 */
-	private static final String ATTR_PREFIX_PARTSIZE = "psize-";
-	
-	/**
-	 * Attribute prefix for part titles
-	 */
-	private static final String ATTR_PREFIX_PARTTITLE = "ptitle-";
-	
-	/**
-	 * Attribute prefix for part tooltip
-	 */
-	private static final String ATTR_PREFIX_PARTTOOLTIP = "ptooltip-";
-
-	/**
-	 * Constructor
-	 */
-	public VDistributionBar() {
-	}
+    protected String paintableId;
+    protected ApplicationConnection client;
 
     /**
-     * Called whenever an update is received from the server 
+     * Attribute name for number of parts
      */
-	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
-		if (client.updateComponent(this, uidl, true)) {
-			return;
-		}
+    private static final String ATTR_PARTS = "parts";
 
-		this.client = client;
-		paintableId = uidl.getId();
+    /**
+     * Attribute prefix for part sizes
+     */
+    private static final String ATTR_PREFIX_PARTSIZE = "psize-";
 
-		if (uidl.hasAttribute(ATTR_PARTS)) {
-			int parts = uidl.getIntAttribute(ATTR_PARTS);
-			setNumberOfParts (parts);
-		
-			for (int i = 0; i < parts; ++i) {
-				final String indexStr = String.valueOf(i);
-				
-				String attribute = ATTR_PREFIX_PARTSIZE + indexStr;
-				if (uidl.hasAttribute(attribute)) {
-					int size = uidl.getIntAttribute(attribute);
-					setPartSize (i, size);
-				}
-				
-				attribute = ATTR_PREFIX_PARTTITLE + indexStr;
-				if (uidl.hasAttribute(attribute)) {
-					setPartTitle (i, uidl.getStringAttribute(attribute));
-				}
-				
-				attribute = ATTR_PREFIX_PARTTOOLTIP + indexStr;
-				if (uidl.hasAttribute(attribute)) {
-					setPartTooltip (i, uidl.getStringAttribute(attribute));
-				}
-			}
-			
-			updateParts();
-		}
-	}
+    /**
+     * Attribute prefix for part titles
+     */
+    private static final String ATTR_PREFIX_PARTTITLE = "ptitle-";
+
+    /**
+     * Attribute prefix for part tooltip
+     */
+    private static final String ATTR_PREFIX_PARTTOOLTIP = "ptooltip-";
+
+    /**
+     * Constructor
+     */
+    public VDistributionBar() {
+    }
+
+    /**
+     * Called whenever an update is received from the server
+     */
+    public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
+        if (client.updateComponent(this, uidl, true)) {
+            return;
+        }
+
+        this.client = client;
+        paintableId = uidl.getId();
+
+        if (uidl.hasAttribute(ATTR_PARTS)) {
+            int parts = uidl.getIntAttribute(ATTR_PARTS);
+            setNumberOfParts(parts);
+
+            for (int i = 0; i < parts; ++i) {
+                final String indexStr = String.valueOf(i);
+
+                String attribute = ATTR_PREFIX_PARTSIZE + indexStr;
+                if (uidl.hasAttribute(attribute)) {
+                    int size = uidl.getIntAttribute(attribute);
+                    setPartSize(i, size);
+                }
+
+                attribute = ATTR_PREFIX_PARTTITLE + indexStr;
+                if (uidl.hasAttribute(attribute)) {
+                    setPartTitle(i, uidl.getStringAttribute(attribute));
+                }
+
+                attribute = ATTR_PREFIX_PARTTOOLTIP + indexStr;
+                if (uidl.hasAttribute(attribute)) {
+                    setPartTooltip(i, uidl.getStringAttribute(attribute));
+                }
+            }
+
+            updateParts();
+        }
+    }
 }

@@ -3,14 +3,5 @@
 <module>
 	<inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet" />
 	
-	<!-- For now this disables widget when IE6 is used -->
-	<replace-with
-        class="org.vaadin.alump.distributionbar.widgetset.client.ui.dom.IE6ElementBuilder">
-        <when-type-is class="org.vaadin.alump.distributionbar.widgetset.client.ui.dom.ElementBuilder" />
-		<any>
-		  <when-property-is name="user.agent" value="ie6"/>
-		</any>
-    </replace-with>
-	
 	<stylesheet src="distributionbar/styles.css"/>
 </module>

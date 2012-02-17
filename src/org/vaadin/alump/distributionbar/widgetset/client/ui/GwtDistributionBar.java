@@ -22,11 +22,11 @@ import java.util.List;
 
 import org.vaadin.alump.distributionbar.widgetset.client.ui.dom.ElementBuilder;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -37,192 +37,173 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GwtDistributionBar extends Widget {
 
-	/**
-	 * Class name
-	 */
-	public static final String CLASSNAME = "alump-dbar";
+    /**
+     * Class name
+     */
+    public static final String CLASSNAME = "alump-dbar";
 
-	/**
-	 * List of sizes of parts
-	 */
-	private final List<Integer> sizes;
+    /**
+     * List of sizes of parts
+     */
+    private final List<Integer> sizes;
 
-	/**
-	 * Timer used to delay recalculation of widths when window is resized
-	 */
-	transient private Timer delayer;
+    /**
+     * Default size of part before it is defined
+     */
+    private static final int DEFAULT_VALUE = 0;
 
-	/**
-	 * Default size of part before it is defined
-	 */
-	private static final int DEFAULT_VALUE = 0;
+    /**
+     * Default title used
+     */
+    private static final String DEFAULT_TITLE = new String();
 
-	/**
-	 * Default title used
-	 */
-	private static final String DEFAULT_TITLE = new String();
+    /**
+     * Instance that will take care of all DOM tree manipulations
+     */
+    transient private ElementBuilder builder;
 
-	/**
-	 * Instance that will take care of all DOM tree manipulations
-	 */
-	transient private ElementBuilder builder;
+    /**
+     * Constructor
+     */
+    public GwtDistributionBar() {
 
-	/**
-	 * Constructor
-	 */
-	public GwtDistributionBar() {
+        sizes = new ArrayList<Integer>();
 
-		sizes = new ArrayList<Integer>();
+        // Make sure builder is initialized when constructor is called
+        getBuilder();
 
-		// Make sure builder is initialized when constructor is called
-		getBuilder();
+        Window.addResizeHandler(resizeHandler);
+    }
 
-		Window.addResizeHandler(resizeHandler);
-	}
+    private ElementBuilder getBuilder() {
+        if (builder == null) {
+            builder = new ElementBuilder();
+            builder.setParent(this);
+            builder.initRootElement();
+            builder.addUninitializedWarning();
+        }
 
-	private ElementBuilder getBuilder() {
-		if (builder == null) {
-			/*
-			 * GWT.create used here to allow replacement class for the element
-			 * builder. To optimize performance this can be changed to use
-			 * direct constructor if no useragent specific implementations are
-			 * used.
-			 */
-			builder = GWT.create(ElementBuilder.class);
-			builder.setParent(this);
-			builder.initRootElement();
-			builder.addUninitializedWarning();
-		}
+        return builder;
+    }
 
-		return builder;
-	}
+    /**
+     * Handled for resize events of window
+     */
+    private final ResizeHandler resizeHandler = new ResizeHandler() {
 
-	/**
-	 * Handled for resize events of window
-	 */
-	private final ResizeHandler resizeHandler = new ResizeHandler() {
+        public void onResize(final ResizeEvent event) {
 
-		@Override
-		public void onResize(final ResizeEvent event) {
+            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 
-			// This event handling must be delayed as parent has to be updated
-			// first.
-			if (delayer == null) {
-				delayer = new Timer() {
-					@Override
-					public void run() {
-						builder.updateParts(sizes);
-					}
-				};
-			} else {
-				delayer.cancel();
-			}
+                public void execute() {
+                    builder.updateParts(sizes);
+                }
 
-			delayer.schedule(500);
-		}
-	};
+            });
+        }
+    };
 
-	/***
-	 * Change the number of parts in distributionbar.
-	 * 
-	 * @param parts
-	 *            Number of parts (min 2). If smaller value is given, it is
-	 *            converted to 2.
-	 */
-	public void setNumberOfParts(int parts) {
+    /***
+     * Change the number of parts in distributionbar.
+     * 
+     * @param parts
+     *            Number of parts (min 2). If smaller value is given, it is
+     *            converted to 2.
+     */
+    public void setNumberOfParts(int parts) {
 
-		if (parts < 2) {
-			parts = 2;
-		}
+        if (parts < 2) {
+            parts = 2;
+        }
 
-		if (parts == sizes.size()) {
-			return;
-		}
+        if (parts == sizes.size()) {
+            return;
+        }
 
-		sizes.clear();
-		getBuilder().initRootElement();
+        sizes.clear();
+        getBuilder().initRootElement();
 
-		if (parts < 2) {
-			parts = 2;
-		}
+        if (parts < 2) {
+            parts = 2;
+        }
 
-		for (int i = 0; i < parts; ++i) {
+        for (int i = 0; i < parts; ++i) {
 
-			sizes.add(DEFAULT_VALUE);
+            sizes.add(DEFAULT_VALUE);
 
-			builder.addPartElement(i, parts, DEFAULT_VALUE, DEFAULT_TITLE);
-		}
-	}
+            builder.addPartElement(i, parts, DEFAULT_VALUE, DEFAULT_TITLE);
+        }
+    }
 
-	/***
-	 * Sum of sizes of parts
-	 * 
-	 * @return Sum of all sizes. Can be zero!
-	 */
-	public int totalSize() {
-		int totalSize = 0;
-		for (Integer value : sizes) {
-			totalSize += value;
-		}
-		return totalSize;
-	}
+    /***
+     * Sum of sizes of parts
+     * 
+     * @return Sum of all sizes. Can be zero!
+     */
+    public int totalSize() {
+        int totalSize = 0;
+        for (Integer value : sizes) {
+            totalSize += value;
+        }
+        return totalSize;
+    }
 
-	/**
-	 * Change size of part. Call updateParts after using this function to update
-	 * the DOM structure.
-	 * 
-	 * @param index
-	 *            Index of part [0...N]
-	 * @param size
-	 *            Size as integer
-	 * @param update
-	 *            If true updateParts is called
-	 */
-	public void setPartSize(int index, int size) {
-		sizes.set(index, size);
-	}
+    /**
+     * Change size of part. Call updateParts after using this function to update
+     * the DOM structure.
+     * 
+     * @param index
+     *            Index of part [0...N]
+     * @param size
+     *            Size as integer
+     * @param update
+     *            If true updateParts is called
+     */
+    public void setPartSize(int index, int size) {
+        sizes.set(index, size);
+    }
 
-	/**
-	 * Change title attribute of part element. Call updateParts after using this
-	 * function to update the DOM structure.
-	 * 
-	 * @param index
-	 *            Index of part [0..N]. Use only valid indexes.
-	 * @param title
-	 *            Title set to title attribute of part DIV element
-	 */
-	public void setPartTitle(int index, String title) {
-		getBuilder().changePartTitle(index, title);
-	}
+    /**
+     * Change title attribute of part element. Call updateParts after using this
+     * function to update the DOM structure.
+     * 
+     * @param index
+     *            Index of part [0..N]. Use only valid indexes.
+     * @param title
+     *            Title set to title attribute of part DIV element
+     */
+    public void setPartTitle(int index, String title) {
+        getBuilder().changePartTitle(index, title);
+    }
 
-	/**
-	 * Change tooltip attribute of part element.
-	 * 
-	 * @param index
-	 *            Index of part which tooltip is changed
-	 * @param content
-	 *            Tooltip content in XHTML
-	 */
-	public void setPartTooltip(int index, String content) {
-		getBuilder().changePartTooltip(index, content);
-	}
+    /**
+     * Change tooltip attribute of part element.
+     * 
+     * @param index
+     *            Index of part which tooltip is changed
+     * @param content
+     *            Tooltip content in XHTML
+     */
+    public void setPartTooltip(int index, String content) {
+        getBuilder().changePartTooltip(index, content);
+    }
 
-	/**
-	 * Update part widths by updating the DOM three
-	 */
-	public void updateParts() {
-		getBuilder().updateParts(sizes);
-	}
+    /**
+     * Update part widths by updating the DOM three
+     */
+    public void updateParts() {
+        getBuilder().updateParts(sizes);
+    }
 
-	/**
-	 * This to allow builders to change the structure of widget. Only to be
-	 * called by ElementBuilder or classes extending it.
-	 * 
-	 * @param element
-	 *            New root element
-	 */
-	public void setRootElement(Element element) {
-		setElement(element);
-	}
+    /**
+     * This to allow builders to change the structure of widget. Only to be
+     * called by ElementBuilder or classes extending it.
+     * 
+     * @param element
+     *            New root element
+     */
+    public void setRootElement(Element element) {
+        setElement(element);
+    }
 
 }
