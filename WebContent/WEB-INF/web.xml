@@ -12,9 +12,9 @@
 		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
 		<init-param>
 			<description>
-			Vaadin application class to start</description>
-			<param-name>application</param-name>
-			<param-value>org.vaadin.alump.distributionbar.DistributionBarDemoApplication</param-value>
+			Vaadin root class to start</description>
+			<param-name>root</param-name>
+			<param-value>org.vaadin.alump.distributionbar.DistributionBarDemoRoot</param-value>
 		</init-param>
 		      <init-param>
             <description>

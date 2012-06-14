@@ -19,36 +19,13 @@
 package org.vaadin.alump.distributionbar.widgetset.client.ui;
 
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
-import com.vaadin.terminal.gwt.client.Paintable;
-import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
  * Client side of DistributionBar which communicates with the server.
  */
-public class VDistributionBar extends GwtDistributionBar implements Paintable {
+public class VDistributionBar extends GwtDistributionBar {
 
-    protected String paintableId;
-    protected ApplicationConnection client;
-
-    /**
-     * Attribute name for number of parts
-     */
-    private static final String ATTR_PARTS = "parts";
-
-    /**
-     * Attribute prefix for part sizes
-     */
-    private static final String ATTR_PREFIX_PARTSIZE = "psize-";
-
-    /**
-     * Attribute prefix for part titles
-     */
-    private static final String ATTR_PREFIX_PARTTITLE = "ptitle-";
-
-    /**
-     * Attribute prefix for part tooltip
-     */
-    private static final String ATTR_PREFIX_PARTTOOLTIP = "ptooltip-";
+    private ApplicationConnection connection;
 
     /**
      * Constructor
@@ -56,42 +33,7 @@ public class VDistributionBar extends GwtDistributionBar implements Paintable {
     public VDistributionBar() {
     }
 
-    /**
-     * Called whenever an update is received from the server
-     */
-    public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
-        if (client.updateComponent(this, uidl, true)) {
-            return;
-        }
-
-        this.client = client;
-        paintableId = uidl.getId();
-
-        if (uidl.hasAttribute(ATTR_PARTS)) {
-            int parts = uidl.getIntAttribute(ATTR_PARTS);
-            setNumberOfParts(parts);
-
-            for (int i = 0; i < parts; ++i) {
-                final String indexStr = String.valueOf(i);
-
-                String attribute = ATTR_PREFIX_PARTSIZE + indexStr;
-                if (uidl.hasAttribute(attribute)) {
-                    int size = uidl.getIntAttribute(attribute);
-                    setPartSize(i, size);
-                }
-
-                attribute = ATTR_PREFIX_PARTTITLE + indexStr;
-                if (uidl.hasAttribute(attribute)) {
-                    setPartTitle(i, uidl.getStringAttribute(attribute));
-                }
-
-                attribute = ATTR_PREFIX_PARTTOOLTIP + indexStr;
-                if (uidl.hasAttribute(attribute)) {
-                    setPartTooltip(i, uidl.getStringAttribute(attribute));
-                }
-            }
-
-            updateParts();
-        }
+    public void setConnection(ApplicationConnection connection) {
+        this.connection = connection;
     }
 }

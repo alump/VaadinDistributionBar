@@ -29,7 +29,6 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.vaadin.terminal.gwt.client.BrowserInfo;
 
 /**
  * This is help class for GwtDistributionBar and so is designed to be used only
@@ -347,11 +346,11 @@ public class ElementBuilder {
      * @return Element used to represent the element
      */
     public Element createPartElement() {
-        if (BrowserInfo.get().isIE6() || BrowserInfo.get().isIE7()) {
-            return Document.get().createSpanElement();
-        } else {
-            return Document.get().createDivElement();
-        }
+        // if (BrowserInfo.get().isIE6() || BrowserInfo.get().isIE7()) {
+        // return Document.get().createSpanElement();
+        // } else {
+        return Document.get().createDivElement();
+        // }
     }
 
     /**

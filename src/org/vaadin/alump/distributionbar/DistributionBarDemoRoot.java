@@ -1,35 +1,19 @@
-/**
- * DistributionBarDemoApplication.java (DistributionBar)
- * 
- * Copyright 2012 Vaadin Ltd, Sami Viitanen <alump@vaadin.org>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.vaadin.alump.distributionbar;
 
 import java.util.Random;
 
-import com.vaadin.Application;
+import com.vaadin.annotations.Theme;
+import com.vaadin.terminal.WrappedRequest;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Root;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
-public class DistributionBarDemoApplication extends Application {
+@Theme("distributionbardemo")
+public class DistributionBarDemoRoot extends Root {
 
     private static final long serialVersionUID = -2473123168493326044L;
     private DistributionBar barOne;
@@ -47,16 +31,12 @@ public class DistributionBarDemoApplication extends Application {
     final static private int BAR_SIX_PARTS = 11;
 
     @Override
-    public void init() {
+    protected void init(WrappedRequest request) {
 
-        setTheme("distributionbardemo");
-
-        Window mainWindow = new Window("Distribution Bar Demo (version 0.3.3)");
-        mainWindow.addComponent(buildView());
-        setMainWindow(mainWindow);
+        this.setContent(buildView());
     }
 
-    private Component buildView() {
+    private ComponentContainer buildView() {
 
         VerticalLayout layout = new VerticalLayout();
         layout.setSizeFull();
