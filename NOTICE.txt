@@ -1,0 +1,1 @@
+This is version for Vaadin 6. Versions since 1.0.0.alpha1 are for Vaadin 7.
