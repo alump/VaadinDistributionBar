@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: DistributionBar
+Implementation-Version: ${Implementation-Version}
+Vaadin-Package-Version: 1
+Vaadin-Widgetsets: org.vaadin.alump.distributionbar.widgetset.DistributionBarWidgetset
+Vaadin-Addon: ${Vaadin-Addon}
+Implementation-Vendor: ${Implementation-Vendor}
