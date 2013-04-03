@@ -10,7 +10,7 @@
 	<version>${dbar.version}</version>
 
 	<properties>
-	    <dbar.version>1.0.0.beta1-SNAPSHOT</dbar.version>
+	    <dbar.version>1.0.0.beta1</dbar.version>
 	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

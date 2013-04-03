@@ -5,6 +5,7 @@ import java.util.Random;
 import org.vaadin.alump.distributionbar.DistributionBar.DistributionBarClickListener;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -17,6 +18,7 @@ import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 @Theme("demo")
+@Title("Distribution Bar Demo")
 public class DistributionBarDemoUI extends UI {
 
     private DistributionBar barOne;
@@ -35,7 +37,7 @@ public class DistributionBarDemoUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-        this.setContent(buildView());
+        setContent(buildView());
     }
 
     private ComponentContainer buildView() {
@@ -128,8 +130,6 @@ public class DistributionBarDemoUI extends UI {
     }
 
     private final Button.ClickListener randomButtonListener = new Button.ClickListener() {
-
-        private static final long serialVersionUID = -4454445076337898590L;
 
         public void buttonClick(ClickEvent event) {
 
