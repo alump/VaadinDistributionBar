@@ -18,6 +18,7 @@
 package org.vaadin.alump.distributionbar.gwt.client;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.vaadin.alump.distributionbar.gwt.client.dom.ElementBuilder;
@@ -27,6 +28,9 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -61,6 +65,24 @@ public class GwtDistributionBar extends Widget {
      * Instance that will take care of all DOM tree manipulations
      */
     transient private ElementBuilder builder;
+    
+    private boolean eventsConnected = false;
+    
+    /**
+     * Interface for click listeners
+     */
+    public interface ClickListener {
+    	/**
+    	 * Called when item is clicked.
+    	 * @param index Index of item clicked.
+    	 */
+    	void onItemClicked(int index);
+    }
+    
+    /**
+     * Click listeners
+     */
+    private List<ClickListener> clickListeners = new LinkedList<ClickListener>();
 
     /**
      * Constructor
@@ -78,7 +100,39 @@ public class GwtDistributionBar extends Widget {
     public void onAttach() {
     	super.onAttach();
     	updateParts();
+    	
+    	connectClickHandlingIfNeeded();
     }
+    
+    private void connectClickHandlingIfNeeded() {
+    	if (!clickListeners.isEmpty() && !eventsConnected) {
+    		DOM.sinkEvents(getElement(), Event.ONCLICK);
+    		DOM.setEventListener(getElement(), eventListener);
+    		eventsConnected = true;
+    	}
+    }
+    
+    private EventListener eventListener = new EventListener() {
+
+		@Override
+		public void onBrowserEvent(Event event) {
+			if (event.getTypeInt() == Event.ONCLICK && !clickListeners.isEmpty()) {
+				Element target = Element.as(event.getEventTarget());
+				for (int i = 0; i < getElement().getChildCount(); ++i) {
+					Element child = Element.as(getElement().getChild(i));
+					if (child.isOrHasChild(target)) {
+						for (ClickListener listener : clickListeners) {
+							listener.onItemClicked(i);
+						}
+						event.stopPropagation();
+						event.preventDefault();
+						return;
+					}
+				}
+			}
+		}
+    	
+    };
 
     private ElementBuilder getBuilder() {
         if (builder == null) {
@@ -209,6 +263,23 @@ public class GwtDistributionBar extends Widget {
      */
     public void setRootElement(Element element) {
         setElement(element);
+    }
+    
+    /**
+     * Add new ClickListener
+     * @param listener
+     */
+    public void addClickListener(ClickListener listener) {
+    	clickListeners.add(listener);
+    	connectClickHandlingIfNeeded();
+    }
+    
+    /**
+     * Remove ClickListener
+     * @param listener
+     */
+    public void removeClickListener(ClickListener listener) {
+    	clickListeners.remove(listener);
     }
 
 }

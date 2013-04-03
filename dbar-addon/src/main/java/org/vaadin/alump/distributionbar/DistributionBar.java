@@ -17,6 +17,10 @@
  */
 package org.vaadin.alump.distributionbar;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.vaadin.alump.distributionbar.gwt.client.connect.DistributionBarServerRpc;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState.Part;
 
@@ -30,7 +34,13 @@ import com.vaadin.ui.AbstractComponent;
  * used can limit the amount of parts that will fit to screen.
  */
 @SuppressWarnings("serial")
-public class DistributionBar extends AbstractComponent {
+public class DistributionBar extends AbstractComponent implements DistributionBarServerRpc {
+	
+	private List<DistributionBarClickListener> clickListeners = new LinkedList<DistributionBarClickListener>();
+	
+	public interface DistributionBarClickListener {
+		void onItemClicked(int index);
+	}
 
     /**
      * Will make distribution bar with 2 parts (size value zero).
@@ -49,6 +59,7 @@ public class DistributionBar extends AbstractComponent {
      */
     public DistributionBar(int numberOfParts) {
 
+    	registerRpc(this);
         for (int i = 0; i < numberOfParts; ++i) {
             getState().getParts().add(new Part());
         }
@@ -83,12 +94,9 @@ public class DistributionBar extends AbstractComponent {
      *            Sizes in integer array
      */
     public void updatePartSizes(int[] partSizes) {
-
         for (int i = 0; i < getNumberOfParts() && i < partSizes.length; ++i) {
             getState().getParts().get(i).setSize(partSizes[i]);
         }
-
-        requestRepaint();
     }
 
     /**
@@ -105,7 +113,6 @@ public class DistributionBar extends AbstractComponent {
         Part part = getState().getParts().get(index);
         part.setSize(size);
         part.setTooltip(tooltip);
-        requestRepaint();
     }
 
     /**
@@ -118,7 +125,6 @@ public class DistributionBar extends AbstractComponent {
      */
     public void setPartSize(int index, int size) {
         getState().getParts().get(index).setSize(size);
-        requestRepaint();
     }
 
     /**
@@ -132,7 +138,6 @@ public class DistributionBar extends AbstractComponent {
      */
     public void setPartTitle(int index, String title) {
         getState().getParts().get(index).setTitle(title);
-        requestRepaint();
     }
 
     /**
@@ -146,7 +151,6 @@ public class DistributionBar extends AbstractComponent {
      */
     public void setPartTooltip(int index, String tooltip) {
         getState().getParts().get(index).setTooltip(tooltip);
-        requestRepaint();
     }
 
     /**
@@ -180,7 +184,40 @@ public class DistributionBar extends AbstractComponent {
     public void setNumberOfParts(int numberOfParts) {
         if (numberOfParts > 1 && getNumberOfParts() != numberOfParts) {
             changeStatePartsSize(numberOfParts);
-            this.requestRepaint();
         }
     }
+
+	@Override
+	public void onItemClicked(int index) {
+		for (DistributionBarClickListener listener : clickListeners) {
+			listener.onItemClicked(index);
+		}
+	}
+	
+	/**
+	 * Add click listener
+	 * @param listener Listener added to listeners
+	 */
+	public void addDistributionBarClickListener(
+			DistributionBarClickListener listener) {
+		
+		if (clickListeners.isEmpty()) {
+			getState().sendClicks = true;
+		}
+		
+		clickListeners.add(listener);
+	}
+	
+	/**
+	 * Remove click listener
+	 * @param listener Listener removed from listeners
+	 */
+	public void removeDistributionBarClickListener(
+			DistributionBarClickListener listener) {
+		clickListeners.remove(listener);
+		
+		if (clickListeners.isEmpty()) {
+			getState().sendClicks = false;
+		}
+	}
 }

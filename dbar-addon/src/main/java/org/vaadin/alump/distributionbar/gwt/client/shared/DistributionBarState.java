@@ -9,6 +9,7 @@ import com.vaadin.shared.AbstractComponentState;
 @SuppressWarnings("serial")
 public class DistributionBarState extends AbstractComponentState {
 
+	public boolean sendClicks = false;
     private List<Part> parts = new ArrayList<Part>();
 
     /**

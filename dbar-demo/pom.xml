@@ -7,20 +7,17 @@
 	<packaging>war</packaging>
 	<name>DistributionBar demo</name>
 	<description>Distribution Bar Demo Application</description>
-
-	<parent>
-		<groupId>org.vaadin.alump</groupId>
-		<artifactId>distributionbar</artifactId>
-		<version>1.0.0.alpha2-SNAPSHOT</version>
-	</parent>
+	<version>${dbar.version}</version>
 
 	<properties>
+	    <dbar.version>1.0.0.beta1-SNAPSHOT</dbar.version>
+	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- May be overridden by the build system -->
 		<license.short.name>apache2</license.short.name>
-        <vaadin.version>7.0.0.rc2</vaadin.version>
-        <vaadin.plugin.version>7.0.0.rc2</vaadin.plugin.version>
+        <vaadin.version>7.0.3</vaadin.version>
+        <vaadin.plugin.version>7.0.3</vaadin.plugin.version>
 
 		<Implementation-Version>${project.version}</Implementation-Version>
 		<!-- Must not change this because of the Directory -->
@@ -56,6 +53,12 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-theme-compiler</artifactId>
             <version>${vaadin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client</artifactId>
+            <version>${vaadin.version}</version>
+            <scope>provided</scope>
         </dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>

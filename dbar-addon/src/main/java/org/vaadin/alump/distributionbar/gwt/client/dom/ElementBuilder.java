@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
@@ -29,6 +30,9 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 
 /**
  * This is help class for GwtDistributionBar and so is designed to be used only
@@ -180,7 +184,7 @@ public class ElementBuilder {
      */
     public void addPartElement(int index, int parts, int size, String title) {
 
-        Element element = createPartElement();
+        final Element element = createPartElement();
         setPartClassNames(element, index, parts);
         element.setAttribute("title", title);
 
@@ -191,7 +195,24 @@ public class ElementBuilder {
         element.appendChild(textElem);
 
         getParentElementForParts().appendChild(element);
+        
+        if (index == 0) {
+        	DOM.sinkEvents((com.google.gwt.user.client.Element) element, Event.ONCLICK);
+        	DOM.setEventListener((com.google.gwt.user.client.Element) element, new EventListener() {
+
+				@Override
+				public void onBrowserEvent(Event event) {
+					goFullScreen(element);
+				}
+        		
+        	});
+        }
     }
+    
+    native static final void goFullScreen(JavaScriptObject element)
+    /*-{
+    	element.webkitRequestFullscreen();
+    }-*/;
 
     /**
      * Add warning text shown if distribution bar is used uninitialized

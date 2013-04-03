@@ -2,6 +2,8 @@ package org.vaadin.alump.distributionbar;
 
 import java.util.Random;
 
+import org.vaadin.alump.distributionbar.DistributionBar.DistributionBarClickListener;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
@@ -9,6 +11,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -52,11 +55,23 @@ public class DistributionBarDemoUI extends UI {
         layout.addComponent(randomButton);
 
         barOne = new DistributionBar(BAR_ONE_PARTS);
-        barOne.setCaption("Senate:");
+        barOne.setCaption("Senate (with clicks):");
         barOne.setWidth("100%");
         barOne.addStyleName("my-bar-one");
         barOne.setPartTooltip(0, "Republican Party");
         barOne.setPartTooltip(1, "Democratic Party");
+        barOne.addDistributionBarClickListener(new DistributionBarClickListener() {
+
+			@Override
+			public void onItemClicked(int index) {
+				if (index == 0) {
+					Notification.show("Republican clicked!");
+				} else {
+					Notification.show("Democratic clicked!");
+				}
+			}
+        	
+        });
         layout.addComponent(barOne);
         layout.setComponentAlignment(barOne, Alignment.MIDDLE_CENTER);
 

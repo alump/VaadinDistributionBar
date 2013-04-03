@@ -5,14 +5,9 @@
   <artifactId>dbar-addon</artifactId>
   <packaging>jar</packaging>
   <name>DistributionBar addon</name>
+  <version>${dbar.version}</version>
   
   <description>Distribution Bar Vaadin 7 addon</description>
-  
-  <parent>
-    <groupId>org.vaadin.alump</groupId>
-    <artifactId>distributionbar</artifactId>
-    <version>1.0.0.alpha2-SNAPSHOT</version>
-  </parent>
   
   <organization>
       <name>Sami Viitanen</name>
@@ -32,12 +27,14 @@
     </developers>
     
 	<properties>
+	    <dbar.version>1.0.0.beta1-SNAPSHOT</dbar.version>
+	
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	
 	    <!-- May be overridden by the build system -->
 	    <license.short.name>apache2</license.short.name>
-	    <vaadin.version>7.0.0.rc2</vaadin.version>
-	    <vaadin.plugin.version>7.0.0.rc2</vaadin.plugin.version>
+	    <vaadin.version>7.0.3</vaadin.version>
+	    <vaadin.plugin.version>7.0.3</vaadin.plugin.version>
 	
 	    <Implementation-Version>${project.version}</Implementation-Version>
 	    <!-- Must not change this because of the Directory -->
