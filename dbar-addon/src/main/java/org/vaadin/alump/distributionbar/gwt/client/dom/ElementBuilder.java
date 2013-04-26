@@ -195,18 +195,6 @@ public class ElementBuilder {
         element.appendChild(textElem);
 
         getParentElementForParts().appendChild(element);
-        
-        if (index == 0) {
-        	DOM.sinkEvents((com.google.gwt.user.client.Element) element, Event.ONCLICK);
-        	DOM.setEventListener((com.google.gwt.user.client.Element) element, new EventListener() {
-
-				@Override
-				public void onBrowserEvent(Event event) {
-					goFullScreen(element);
-				}
-        		
-        	});
-        }
     }
     
     native static final void goFullScreen(JavaScriptObject element)
