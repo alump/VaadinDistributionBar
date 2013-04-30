@@ -27,14 +27,14 @@
     </developers>
     
 	<properties>
-	    <dbar.version>1.0.0.beta1</dbar.version>
+	    <dbar.version>1.0.0.beta2</dbar.version>
 	
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	
 	    <!-- May be overridden by the build system -->
 	    <license.short.name>apache2</license.short.name>
-	    <vaadin.version>7.0.3</vaadin.version>
-	    <vaadin.plugin.version>7.0.3</vaadin.plugin.version>
+	    <vaadin.version>7.0.5</vaadin.version>
+	    <vaadin.plugin.version>7.0.5</vaadin.plugin.version>
 	
 	    <Implementation-Version>${project.version}</Implementation-Version>
 	    <!-- Must not change this because of the Directory -->
@@ -61,6 +61,7 @@
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-client</artifactId>
         <version>${vaadin.version}</version>
+        <scope>provided</scope>
     </dependency>
     <dependency>
         <groupId>com.vaadin</groupId>

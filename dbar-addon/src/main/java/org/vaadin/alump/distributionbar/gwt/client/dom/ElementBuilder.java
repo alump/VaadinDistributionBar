@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
@@ -30,9 +29,6 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.EventListener;
 
 /**
  * This is help class for GwtDistributionBar and so is designed to be used only
@@ -196,11 +192,6 @@ public class ElementBuilder {
 
         getParentElementForParts().appendChild(element);
     }
-    
-    native static final void goFullScreen(JavaScriptObject element)
-    /*-{
-    	element.webkitRequestFullscreen();
-    }-*/;
 
     /**
      * Add warning text shown if distribution bar is used uninitialized
