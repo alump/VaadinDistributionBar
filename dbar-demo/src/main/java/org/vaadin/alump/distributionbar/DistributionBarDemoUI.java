@@ -2,6 +2,8 @@ package org.vaadin.alump.distributionbar;
 
 import java.util.Random;
 
+import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.VaadinServlet;
 import org.vaadin.alump.distributionbar.DistributionBar.DistributionBarClickListener;
 
 import com.vaadin.annotations.Theme;
@@ -16,10 +18,18 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import javax.servlet.annotation.WebServlet;
+
 @SuppressWarnings("serial")
 @Theme("demo")
 @Title("Distribution Bar Demo")
+
 public class DistributionBarDemoUI extends UI {
+
+    @WebServlet(value = "/*")
+    @VaadinServletConfiguration(productionMode = false, ui = DistributionBarDemoUI.class, widgetset = "org.vaadin.alump.distributionbar.demo.widgetset.DBarDemoWidgetset")
+    public static class FancyLayoutsUIServlet extends VaadinServlet {
+    }
 
     private DistributionBar barOne;
     private DistributionBar barTwo;
@@ -101,6 +111,7 @@ public class DistributionBarDemoUI extends UI {
         barFour.setWidth("100%");
         barFour.addStyleName("my-bar-four");
         barFour.setPartTooltip(BAR_FOUR_PARTS - 1, "Wow! You found this.");
+        barFour.setPartStyleName(BAR_FOUR_PARTS - 1, "hidden-part");
         layout.addComponent(barFour);
         layout.setComponentAlignment(barFour, Alignment.MIDDLE_CENTER);
 

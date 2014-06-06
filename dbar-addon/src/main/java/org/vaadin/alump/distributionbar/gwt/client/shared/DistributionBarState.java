@@ -20,6 +20,7 @@ public class DistributionBarState extends AbstractComponentState {
         private int size;
         private String title;
         private String tooltip;
+        private String styleName;
 
         public Part() {
             title = new String();
@@ -53,6 +54,14 @@ public class DistributionBarState extends AbstractComponentState {
 
         public String getTooltip() {
             return tooltip;
+        }
+
+        public String getStyleName() {
+            return styleName;
+        }
+
+        public void setStyleName(String styleName) {
+            this.styleName = styleName;
         }
     }
 

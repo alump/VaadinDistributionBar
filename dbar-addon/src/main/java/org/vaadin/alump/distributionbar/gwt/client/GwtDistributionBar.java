@@ -247,6 +247,10 @@ public class GwtDistributionBar extends Widget {
         getBuilder().changePartTooltip(index, content);
     }
 
+    public void setPartStyleName(int index, String styleName) {
+        getBuilder().changePartStyleName(index, sizes.size(), styleName);
+    }
+
     /**
      * Update part widths by updating the DOM three
      */

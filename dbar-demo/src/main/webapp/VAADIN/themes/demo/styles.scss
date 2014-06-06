@@ -9,45 +9,50 @@
 }
 
 .my-bar-one {
-	max-width: 800px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
+  max-width: 800px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+  .alump-dbar-value {
+    padding: 0px 12px 0px 12px;
+  }
 
-.my-bar-one .alump-dbar-part-1 {
-	background-image: none;
-    background-color: rgb(50%,0%,0%);
-	color: white;
-	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-
-.my-bar-one .alump-dbar-part-1:hover {
-	background-color: rgb(75%,0%,0%);
-	font-weight: bold;
-	box-shadow: 0px 0px 4px 4px rgba(75%,0%,0%,0.5);  
-    -moz-box-shadow: 0px 0px 4px 4px rgba(75%,0%,0%,0.5);
-    -webkit-box-shadow: 0px 0px 4px 4px rgba(75%,0%,0%,0.5);
-}
-
-.my-bar-one .alump-dbar-part-2 {
+  .alump-dbar-part-1 {
     background-image: none;
-    background-color: rgb(0%,0%,50%);
+    background-color: rgb(50%, 0%, 0%);
+    color: white;
+    text-align: right;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+
+    &:hover {
+      background-color: rgb(75%, 0%, 0%);
+      font-weight: bold;
+      box-shadow: 0px 0px 4px 4px rgba(75%, 0%, 0%, 0.5);
+      -moz-box-shadow: 0px 0px 4px 4px rgba(75%, 0%, 0%, 0.5);
+      -webkit-box-shadow: 0px 0px 4px 4px rgba(75%, 0%, 0%, 0.5);
+    }
+  }
+
+  .alump-dbar-part-2 {
+    background-image: none;
+    background-color: rgb(0%, 0%, 50%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
 
-.my-bar-one .alump-dbar-part-2:hover {
-    background-color: rgb(0%,0%,75%);
-    font-weight: bold;
-    box-shadow: 0px 0px 4px 4px rgba(0%,0%,75%,0.5);  
-    -moz-box-shadow: 0px 0px 4px 4px rgba(0%,0%,75%,0.5);
-    -webkit-box-shadow: 0px 0px 4px 4px rgba(0%,0%,75%,0.5);
-}
+    &:hover {
+      background-color: rgb(0%, 0%, 75%);
+      font-weight: bold;
+      box-shadow: 0px 0px 4px 4px rgba(0%, 0%, 75%, 0.5);
+      -moz-box-shadow: 0px 0px 4px 4px rgba(0%, 0%, 75%, 0.5);
+      -webkit-box-shadow: 0px 0px 4px 4px rgba(0%, 0%, 75%, 0.5);
+    }
+  }
 
-.my-bar-one > *:hover {
-   -ms-animation: bump 1s ease-in-out;
-   -webkit-animation: bump 1s ease-in-out;
-   animation: bump 1s ease-in-out;
+  > *:hover {
+    -ms-animation: bump 1s ease-in-out;
+    -webkit-animation: bump 1s ease-in-out;
+    animation: bump 1s ease-in-out;
+  }
 }
 
 @-webkit-keyframes bump {
@@ -64,41 +69,41 @@
 
 
 .my-bar-two {
-	max-width: 1200px;
-}
+  max-width: 1200px;
 
-.my-bar-two .alump-dbar-left {
-	border-radius: 0px;
-}
-
-.my-bar-two .alump-dbar-right {
+  .alump-dbar-left {
     border-radius: 0px;
-}
+  }
 
-.my-bar-two .alump-dbar-part-1 {
-	background-color: transparent;
+  .alump-dbar-right {
+    border-radius: 0px;
+  }
+
+  .alump-dbar-part-1 {
+    background-color: transparent;
     background-image: url('images/left0.png');
     background-repeat: none;
     background-size: auto 24px;
     color: white;
-}
+  }
 
-.my-bar-two .alump-dbar-part-2 {
+  .alump-dbar-part-2 {
     background-color: transparent;
     background-image: url('images/middle0.png');
     background-repeat: none;
     background-size: auto 24px;
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
-}
+  }
 
-.my-bar-two .alump-dbar-part-3 {
+  .alump-dbar-part-3 {
     background-color: transparent;
     background-image: url('images/right0.png');
     background-repeat: none;
     background-size: auto 24px;
     background-position: top right;
     color: white;
+  }
 }
 
 .my-bar-three {
@@ -106,89 +111,106 @@
 }
 
 .my-bar-four {
-    max-width: 1200px;
-}
+  max-width: 1200px;
 
-.my-bar-four .alump-dbar-part-1, .my-bar-four .alump-dbar-part-3, .my-bar-four .alump-dbar-part-5, .my-bar-four .alump-dbar-part-7, .my-bar-four .alump-dbar-part-9 {
-	background-color: gray;
-	color: white;
-	text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-	border-radius: 8px 8px 8px 8px;
-}
+  .alump-dbar-part-1, .alump-dbar-part-3, .alump-dbar-part-5, .alump-dbar-part-7, .alump-dbar-part-9 {
+    background-color: gray;
+    color: white;
+    text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
+    border-radius: 8px 8px 8px 8px;
+  }
 
-.my-bar-four .alump-dbar-part-2, .my-bar-four .alump-dbar-part-4, .my-bar-four .alump-dbar-part-6, .my-bar-four .alump-dbar-part-8, .my-bar-four .alump-dbar-part-10 {
+  .alump-dbar-part-2, .alump-dbar-part-4, .alump-dbar-part-6, .alump-dbar-part-8, .alump-dbar-part-10 {
     background-color: silver;
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
     border-radius: 8px 8px 8px 8px;
+  }
+
+  .hidden-part {
+    animation: flashhidden 1s alternate infinite;
+    -webkit-animation: flashhidden 1s alternate infinite;
+  }
+}
+
+@keyframes flashhidden {
+  from { background-color: gray; }
+  to { background-color: silver; }
+}
+@-webkit-keyframes flashhidden {
+  from { background-color: gray; }
+  to { background-color: silver; }
 }
 
 .my-bar-five {
-    max-width: 1200px;
+  max-width: 1200px;
+
+  .alump-dbar-part-1 {
+    background-color: rgb(0%, 50%, 0%);
+    min-width: 80px;
+  }
+
+  .alump-dbar-part-2 {
+    background-color: rgb(50%, 0%, 0%);
+    min-width: 80px;
+  }
 }
 
-.my-bar-five .alump-dbar-part-1 {
-	background-color: rgb(0%,50%,0%);
-	min-width: 80px;
-}
+.my-bar-six {
 
-.my-bar-five .alump-dbar-part-2 {
-	background-color: rgb(50%,0%,0%);
-	min-width: 80px;
-}
-
-.my-bar-six .alump-dbar-part-1 {
-    background-color: rgb(0%,0%,0%);
+  .alump-dbar-part-1 {
+    background-color: rgb(0%, 0%, 0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-.my-bar-six .alump-dbar-part-2 {
-    background-color: rgb(20%,0%,0%);
+  }
+  .alump-dbar-part-2 {
+    background-color: rgb(20%, 0%, 0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-.my-bar-six .alump-dbar-part-3 {
-    background-color: rgb(40%,0%,0%);
+  }
+  .alump-dbar-part-3 {
+    background-color: rgb(40%, 0%, 0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-.my-bar-six .alump-dbar-part-4 {
-    background-color: rgb(60%,0%,0%);
+  }
+  .alump-dbar-part-4 {
+    background-color: rgb(60%, 0%, 0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-.my-bar-six .alump-dbar-part-5 {
-    background-color: rgb(80%,0%,0%);
+  }
+  .alump-dbar-part-5 {
+    background-color: rgb(80%, 0%, 0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-.my-bar-six .alump-dbar-part-6 {
-    background-color: rgb(100%,0%,0%);
+  }
+  .alump-dbar-part-6 {
+    background-color: rgb(100%, 0%, 0%);
     color: white;
     text-shadow: 1px 1px 1px #000000, -0.5px -0.5px 0.5px #000000;
-}
-.my-bar-six .alump-dbar-part-7 {
-    background-color: rgb(100%,20%,20%);
+  }
+  .alump-dbar-part-7 {
+    background-color: rgb(100%, 20%, 20%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
-}
-.my-bar-six .alump-dbar-part-8 {
-    background-color: rgb(100%,40%,40%);
+  }
+  .alump-dbar-part-8 {
+    background-color: rgb(100%, 40%, 40%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
-}
-.my-bar-six .alump-dbar-part-9 {
-    background-color: rgb(100%,60%,60%);
+  }
+  .alump-dbar-part-9 {
+    background-color: rgb(100%, 60%, 60%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
-}
-.my-bar-six .alump-dbar-part-10 {
-    background-color: rgb(100%,80%,80%);
+  }
+  .alump-dbar-part-10 {
+    background-color: rgb(100%, 80%, 80%);
     color: black;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
-}
-.my-bar-six .alump-dbar-part-11 {
-    background-color: rgb(100%,100%,100%);
+  }
+  .alump-dbar-part-11 {
+    background-color: rgb(100%, 100%, 100%);
     color: red;
     text-shadow: 1px 1px 1px #ffffff, -0.5px -0.5px 0.5px #ffffff;
+  }
 }

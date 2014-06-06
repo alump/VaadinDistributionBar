@@ -54,6 +54,7 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
             getWidget().setPartSize(i, part.getSize());
             getWidget().setPartTitle(i, part.getTitle());
             getWidget().setPartTooltip(i, part.getTooltip());
+            getWidget().setPartStyleName(i, part.getStyleName());
         }
 
         getWidget().updateParts();

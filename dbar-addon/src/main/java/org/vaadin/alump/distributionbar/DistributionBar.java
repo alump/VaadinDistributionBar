@@ -110,9 +110,27 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      *            Tooltip content is XHTML
      */
     public void setupPart(int index, int size, String tooltip) {
+        setupPart(index, size, tooltip, null);
+    }
+
+    /**
+     * Setup part by defining size, tooltip and style name with one command
+     *
+     * @param index
+     *            Index of part [0..N]. Only give valid indexes.
+     * @param size
+     *            Size as integer number
+     * @param tooltip
+     *            Tooltip content is XHTML
+     * @param styleName
+     *            Stylename added to part
+     */
+    public void setupPart(int index, int size, String tooltip, String styleName) {
+
         Part part = getState().getParts().get(index);
         part.setSize(size);
         part.setTooltip(tooltip);
+        part.setTooltip(styleName);
     }
 
     /**
@@ -151,6 +169,18 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      */
     public void setPartTooltip(int index, String tooltip) {
         getState().getParts().get(index).setTooltip(tooltip);
+    }
+
+    /**
+     * Change stylename of given part.
+     *
+     * @param index
+     *            Index of part [0..N]. Only give valid indexes.
+     * @param styleName
+     *            Style name of part
+     */
+    public void setPartStyleName(int index, String styleName) {
+        getState().getParts().get(index).setStyleName(styleName);
     }
 
     /**

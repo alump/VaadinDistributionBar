@@ -149,8 +149,10 @@ public class ElementBuilder {
      *            Index of part (useful for left/middle/right)
      * @param parts
      *            Number of parts totally (useful for left/middle/right)
+     * @param extraStyleName
+     *            Extra style name(s) defined by used
      */
-    public void setPartClassNames(Element element, int index, int parts) {
+    public void setPartClassNames(Element element, int index, int parts, String extraStyleName) {
         String styleName = GwtDistributionBar.CLASSNAME;
 
         // Allows styling like rounded corners
@@ -164,6 +166,9 @@ public class ElementBuilder {
 
         element.setClassName(styleName);
         element.addClassName(PART_CLASSNAME_PREFIX + String.valueOf(index + 1));
+        if(extraStyleName != null) {
+            element.addClassName(extraStyleName);
+        }
     }
 
     /**
@@ -181,7 +186,7 @@ public class ElementBuilder {
     public void addPartElement(int index, int parts, int size, String title) {
 
         final Element element = createPartElement();
-        setPartClassNames(element, index, parts);
+        setPartClassNames(element, index, parts, null);
         element.setAttribute("title", title);
 
         Element textElem = Document.get().createSpanElement();
@@ -257,6 +262,14 @@ public class ElementBuilder {
             } else {
                 getToolTip().setToolTip(element, content);
             }
+        }
+    }
+
+    public void changePartStyleName(int index, int parts, String styleName) {
+        Element element = getPartElement(index);
+
+        if (element != null) {
+            setPartClassNames(element, index, parts, styleName);
         }
     }
 
