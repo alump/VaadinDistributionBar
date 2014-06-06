@@ -32,8 +32,8 @@
 
 		<!-- May be overridden by the build system -->
 		<license.short.name>apache2</license.short.name>
-		<vaadin.version>7.2.2</vaadin.version>
-		<vaadin.plugin.version>7.2.2</vaadin.plugin.version>
+		<vaadin.version>7.1.15</vaadin.version>
+		<vaadin.plugin.version>7.1.15</vaadin.plugin.version>
 
 		<Implementation-Version>${project.version}</Implementation-Version>
 		<!-- Must not change this because of the Directory -->
