@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<name>DistributionBar demo</name>
 	<description>Distribution Bar Demo Application</description>
-	<version>1.0.0.beta3</version>
+	<version>1.0.0</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -97,9 +97,8 @@
 					<noServer>true</noServer>
 					<runTarget>http://localhost:8080/dbar</runTarget>
 					<port>8080</port>
-					<draftCompile>true</draftCompile>
-					<!-- <style>OBF</style> -->
-					<style>PRETTY</style>
+					<draftCompile>false</draftCompile>
+					<style>OBF</style>
 					<force>true</force>
 					<strict>true</strict>
 					<compileReport>false</compileReport>
