@@ -4,19 +4,13 @@ import java.util.Random;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.*;
 import org.vaadin.alump.distributionbar.DistributionBar.DistributionBarClickListener;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.ComponentContainer;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -37,6 +31,7 @@ public class DistributionBarDemoUI extends UI {
     private DistributionBar barFour;
     private DistributionBar barFive;
     private DistributionBar barSix;
+    private DistributionBar barSeven;
 
     final static private int BAR_ONE_PARTS = 2;
     final static private int BAR_TWO_PARTS = 3;
@@ -44,6 +39,11 @@ public class DistributionBarDemoUI extends UI {
     final static private int BAR_FOUR_PARTS = 10;
     final static private int BAR_FIVE_PARTS = 2;
     final static private int BAR_SIX_PARTS = 11;
+    final static private int BAR_SEVEN_PARTS = 3;
+
+    private final Random rand = new Random(0xDEADBEEF);
+
+    private Label changingLabel;
 
     @Override
     protected void init(VaadinRequest request) {
@@ -85,7 +85,6 @@ public class DistributionBarDemoUI extends UI {
         	
         });
         layout.addComponent(barOne);
-        layout.setComponentAlignment(barOne, Alignment.MIDDLE_CENTER);
 
         barTwo = new DistributionBar(BAR_TWO_PARTS);
         barTwo.setCaption("Do people like nicer backgrounds?");
@@ -97,14 +96,12 @@ public class DistributionBarDemoUI extends UI {
                 "<img src=\"http://alump.iki.fi/avatar.png\" />");
         barTwo.setPartTooltip(2, "&lt;- Check the one on the left");
         layout.addComponent(barTwo);
-        layout.setComponentAlignment(barTwo, Alignment.MIDDLE_CENTER);
 
         barThree = new DistributionBar(BAR_THREE_PARTS);
         barThree.setCaption("Maaaany parts with default styling");
         barThree.setWidth("100%");
         barThree.addStyleName("my-bar-three");
         layout.addComponent(barThree);
-        layout.setComponentAlignment(barThree, Alignment.MIDDLE_CENTER);
 
         barFour = new DistributionBar(BAR_FOUR_PARTS);
         barFour.setCaption("CSS tricks");
@@ -113,7 +110,6 @@ public class DistributionBarDemoUI extends UI {
         barFour.setPartTooltip(BAR_FOUR_PARTS - 1, "Wow! You found this.");
         barFour.setPartStyleName(BAR_FOUR_PARTS - 1, "hidden-part");
         layout.addComponent(barFour);
-        layout.setComponentAlignment(barFour, Alignment.MIDDLE_CENTER);
 
         barFive = new DistributionBar(BAR_FIVE_PARTS);
         barFive.setCaption("Vote results:");
@@ -127,14 +123,32 @@ public class DistributionBarDemoUI extends UI {
                 "<span style=\"color: red; font-size: 200%; font-weight: bold;\">NO WAY!</span>");
         barFive.setPartTitle(1, "NO!");
         layout.addComponent(barFive);
-        layout.setComponentAlignment(barFive, Alignment.MIDDLE_CENTER);
 
         barSix = new DistributionBar(BAR_SIX_PARTS);
         barSix.setCaption("Change in part count:");
         barSix.setWidth("100%");
         barSix.addStyleName("my-bar-six");
         layout.addComponent(barSix);
-        layout.setComponentAlignment(barSix, Alignment.MIDDLE_CENTER);
+
+        HorizontalLayout resizingLayout = new HorizontalLayout();
+        resizingLayout.setSpacing(true);
+        resizingLayout.setWidth("100%");
+        layout.addComponent(resizingLayout);
+        resizingLayout.setCaption("Dynamic layout test:");
+
+        changingLabel = new Label("changing label");
+        changingLabel.setSizeUndefined();
+        resizingLayout.addComponent(changingLabel);
+
+        barSeven = new DistributionBar(BAR_SEVEN_PARTS);
+        barSeven.addStyleName("my-bar-seven");
+        barSeven.setWidth("100%");
+        resizingLayout.addComponent(barSeven);
+        resizingLayout.setExpandRatio(barSeven, 1.0f);
+        for(int i = 0; i < BAR_SEVEN_PARTS; ++i) {
+            barSeven.setPartTitle(i, "foo");
+            barSeven.setPartSize(i, 1 + i);
+        }
 
         return layout;
 
@@ -144,10 +158,8 @@ public class DistributionBarDemoUI extends UI {
 
         public void buttonClick(ClickEvent event) {
 
-            Random random = new Random();
-
             int chairs = 100;
-            int groupA = random.nextInt(chairs);
+            int groupA = rand.nextInt(chairs);
 
             barOne.setPartSize(0, groupA);
             barOne.setPartTooltip(0, "<b>Republican Party: " + groupA
@@ -158,27 +170,38 @@ public class DistributionBarDemoUI extends UI {
                     + " seats</b><br/>Lorem ipsum...<br/>...ipsum Lorem.");
 
             for (int i = 0; i < BAR_TWO_PARTS; ++i) {
-                barTwo.setPartSize(i, random.nextInt(20));
+                barTwo.setPartSize(i, rand.nextInt(20));
             }
 
             for (int i = 0; i < BAR_THREE_PARTS; ++i) {
-                int value = random.nextInt(50);
+                int value = rand.nextInt(50);
                 barThree.setPartSize(i, value);
                 barThree.setPartTooltip(i, "part" + i + ", with size: " + value);
             }
 
             for (int i = 0; i < BAR_FOUR_PARTS; ++i) {
-                barFour.setPartSize(i, random.nextInt(10));
+                barFour.setPartSize(i, rand.nextInt(10));
             }
 
             for (int i = 0; i < BAR_FIVE_PARTS; ++i) {
-                barFive.setPartSize(i, random.nextInt(10000000));
+                barFive.setPartSize(i, rand.nextInt(10000000));
             }
 
-            int newSize = 2 + random.nextInt(9);
+            int newSize = 2 + rand.nextInt(9);
             barSix.setNumberOfParts(newSize);
             for (int i = 0; i < newSize; ++i) {
-                barSix.setPartSize(i, random.nextInt(5));
+                barSix.setPartSize(i, rand.nextInt(5));
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("changing label ");
+            int letters = rand.nextInt(5);
+            for(int i = 0; i < letters; ++i) {
+                sb.append("x");
+            }
+            changingLabel.setValue(sb.toString());
+            for (int i = 0; i < BAR_SEVEN_PARTS; ++i) {
+                barSeven.setPartSize(i, 5 + rand.nextInt(15));
             }
 
         }

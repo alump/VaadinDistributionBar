@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import org.vaadin.alump.distributionbar.gwt.client.dom.ElementBuilder;
 
 import com.google.gwt.core.client.Scheduler;
@@ -67,6 +68,10 @@ public class GwtDistributionBar extends Widget {
     transient private ElementBuilder builder;
     
     private boolean eventsConnected = false;
+
+    private HandlerRegistration windowResizeReg;
+
+    public final static int DELAYED_UPDATE_MS = 300;
     
     /**
      * Interface for click listeners
@@ -93,8 +98,6 @@ public class GwtDistributionBar extends Widget {
 
         // Make sure builder is initialized when constructor is called
         getBuilder();
-
-        Window.addResizeHandler(resizeHandler);
     }
     
     public void onAttach() {
@@ -102,6 +105,16 @@ public class GwtDistributionBar extends Widget {
     	updateParts();
     	
     	connectClickHandlingIfNeeded();
+
+        windowResizeReg = Window.addResizeHandler(resizeHandler);
+    }
+
+    public void onDetach() {
+        if(windowResizeReg != null) {
+            windowResizeReg.removeHandler();
+            windowResizeReg = null;
+        }
+        super.onDetach();
     }
     
     private void connectClickHandlingIfNeeded() {
@@ -151,14 +164,7 @@ public class GwtDistributionBar extends Widget {
     private final ResizeHandler resizeHandler = new ResizeHandler() {
 
         public void onResize(final ResizeEvent event) {
-
-            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-
-                public void execute() {
-                    builder.updateParts(sizes);
-                }
-
-            });
+            updateParts();
         }
     };
 
@@ -215,8 +221,6 @@ public class GwtDistributionBar extends Widget {
      *            Index of part [0...N]
      * @param size
      *            Size as integer
-     * @param update
-     *            If true updateParts is called
      */
     public void setPartSize(int index, int size) {
         sizes.set(index, size);
@@ -255,7 +259,35 @@ public class GwtDistributionBar extends Widget {
      * Update part widths by updating the DOM three
      */
     public void updateParts() {
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+            @Override
+            public void execute() {
+                if(GwtDistributionBar.this.isAttached()) {
+                    updateParts(true);
+                }
+            }
+        });
+    }
+
+    /**
+     * Sync update with optional extra delayed async update
+     * @param runDelayed if true extra update is run with some delay
+     */
+    public void updateParts(boolean runDelayed) {
+
         getBuilder().updateParts(sizes);
+
+        if(runDelayed) {
+            Scheduler.get().scheduleFixedDelay(new Scheduler.RepeatingCommand() {
+                @Override
+                public boolean execute() {
+                    if(GwtDistributionBar.this.isAttached()) {
+                        getBuilder().updateParts(sizes);
+                    }
+                    return false;
+                }
+            }, DELAYED_UPDATE_MS);
+        }
     }
 
     /**

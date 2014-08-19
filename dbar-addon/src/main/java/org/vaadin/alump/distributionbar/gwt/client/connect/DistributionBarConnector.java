@@ -1,5 +1,10 @@
 package org.vaadin.alump.distributionbar.gwt.client.connect;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState;
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar.ClickListener;
@@ -16,6 +21,8 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
 	protected final DistributionBarServerRpc serverRpc = RpcProxy.create(
 			DistributionBarServerRpc.class, this);
 	private boolean clicksConnected = false;
+
+    public final int DELAYED_UPDATE_PARTS_MS = 400;
 
     @Override
     public void init() {
@@ -58,6 +65,14 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
         }
 
         getWidget().updateParts();
+
+        // As Vaadin layouts will have delayed sizing, this makes sure size is double checked
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            @Override
+            public void execute() {
+                getWidget().updateParts();
+            }
+        });
     }
 
 	@Override
