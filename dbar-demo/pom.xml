@@ -14,8 +14,8 @@
 
 		<!-- May be overridden by the build system -->
 		<license.short.name>apache2</license.short.name>
-		<vaadin.version>7.1.15</vaadin.version>
-		<vaadin.plugin.version>7.1.15</vaadin.plugin.version>
+		<vaadin.version>7.2.6</vaadin.version>
+		<vaadin.plugin.version>7.2.6</vaadin.plugin.version>
 
 		<Implementation-Version>${project.version}</Implementation-Version>
 		<!-- Must not change this because of the Directory -->
@@ -99,7 +99,6 @@
 					<port>8080</port>
 					<draftCompile>false</draftCompile>
 					<style>OBF</style>
-					<force>true</force>
 					<strict>true</strict>
 					<compileReport>false</compileReport>
 				</configuration>
@@ -260,7 +259,6 @@
 							<port>8080</port>
 							<draftCompile>true</draftCompile>
 							<style>PRETTY</style>
-							<force>true</force>
 							<strict>true</strict>
 							<compileReport>false</compileReport>
 						</configuration>
@@ -268,6 +266,7 @@
 						<executions>
 							<execution>
 								<goals>
+									<goal>clean</goal>
 									<goal>resources</goal>
 									<goal>compile</goal>
 									<goal>test</goal>
