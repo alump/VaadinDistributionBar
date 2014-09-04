@@ -56,6 +56,20 @@
  -o-transition: width 2s;
 }
 
+.alump-dbar-only {
+ display: inline-block;
+ min-width: 30px;
+ text-align: left;
+ padding: 5px 0px 5px 0px;
+ height: 14px;
+ vertical-align: middle;
+ border-radius: 15px 15px 15px 15px;
+ transition: width 2s;
+ -moz-transition: width 2s;
+ -webkit-transition: width 2s;
+ -o-transition: width 2s;
+}
+
 .alump-dbar-part-1 {
  background-color: #800000;
  color: white;

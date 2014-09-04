@@ -20,6 +20,7 @@ package org.vaadin.alump.distributionbar.gwt.client;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import org.vaadin.alump.distributionbar.gwt.client.dom.ElementBuilder;
@@ -72,6 +73,10 @@ public class GwtDistributionBar extends Widget {
     private HandlerRegistration windowResizeReg;
 
     public final static int DELAYED_UPDATE_MS = 300;
+
+    private boolean zeroVisible = true;
+
+    private double minPartWidth = 30.0;
     
     /**
      * Interface for click listeners
@@ -172,13 +177,12 @@ public class GwtDistributionBar extends Widget {
      * Change the number of parts in distributionbar.
      * 
      * @param parts
-     *            Number of parts (min 2). If smaller value is given, it is
-     *            converted to 2.
+     *            Number of parts (min 1).
      */
     public void setNumberOfParts(int parts) {
 
-        if (parts < 2) {
-            parts = 2;
+        if(parts < 1) {
+            throw new IllegalArgumentException("Bar needs to have at least one part");
         }
 
         if (parts == sizes.size()) {
@@ -187,10 +191,6 @@ public class GwtDistributionBar extends Widget {
 
         sizes.clear();
         getBuilder().initRootElement();
-
-        if (parts < 2) {
-            parts = 2;
-        }
 
         for (int i = 0; i < parts; ++i) {
 
@@ -251,8 +251,8 @@ public class GwtDistributionBar extends Widget {
         getBuilder().changePartTooltip(index, content);
     }
 
-    public void setPartStyleName(int index, String styleName) {
-        getBuilder().changePartStyleName(index, sizes.size(), styleName);
+    public void setPartStyleName(int index, int styleIndex, String styleName) {
+        getBuilder().changePartStyleName(index, styleIndex, sizes.size(), styleName);
     }
 
     /**
@@ -275,19 +275,23 @@ public class GwtDistributionBar extends Widget {
      */
     public void updateParts(boolean runDelayed) {
 
-        getBuilder().updateParts(sizes);
+        callBuilderToUpdateParts();
 
         if(runDelayed) {
             Scheduler.get().scheduleFixedDelay(new Scheduler.RepeatingCommand() {
                 @Override
                 public boolean execute() {
                     if(GwtDistributionBar.this.isAttached()) {
-                        getBuilder().updateParts(sizes);
+                        callBuilderToUpdateParts();
                     }
                     return false;
                 }
             }, DELAYED_UPDATE_MS);
         }
+    }
+
+    private void callBuilderToUpdateParts() {
+        getBuilder().updateParts(sizes, minPartWidth);
     }
 
     /**
@@ -316,6 +320,14 @@ public class GwtDistributionBar extends Widget {
      */
     public void removeClickListener(ClickListener listener) {
     	clickListeners.remove(listener);
+    }
+
+    public void setMinPartWidth(double minWidth) {
+        minPartWidth = minWidth;
+    }
+
+    public double getMinPartWidth() {
+        return minPartWidth;
     }
 
 }

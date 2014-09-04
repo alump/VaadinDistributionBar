@@ -54,10 +54,14 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      * will get the default size value: zero.
      * 
      * @param numberOfParts
-     *            Number of parts. Must be two or more. Smaller values are
-     *            converted to two.
+     *            Number of parts. Must be 1 or more.
      */
     public DistributionBar(int numberOfParts) {
+
+        if(numberOfParts < 1) {
+            throw new IllegalArgumentException("Distribution bar must have at least one part: " + numberOfParts
+                    + " parts given");
+        }
 
     	registerRpc(this);
         for (int i = 0; i < numberOfParts; ++i) {
@@ -250,4 +254,40 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
 			getState().sendClicks = false;
 		}
 	}
+
+    /**
+     * Define if parts with size 0 should still be shown in distribution bar
+     * @param zeroVisible true if zero sized are shown, false if shrunk to invisible
+     */
+    public void setZeroSizedVisible(boolean zeroVisible) {
+        getState().zeroVisible = zeroVisible;
+    }
+
+    /**
+     * See if zero sized parts are shown or shrunk to invisible
+     * @return true if zero sized are shown, false if shrunk to invisible
+     */
+    public boolean isZeroSizedVisible() {
+        return getState().zeroVisible;
+    }
+
+    /**
+     * Define minimum with of part with value. Experimental API!
+     * @deprecated Experimental API!
+     * @param pixels With in pixels.
+     */
+    @Deprecated
+    public void setMinPartWidth(double pixels) {
+        getState().minWidth = pixels;
+    }
+
+    /**
+     * Get minimum width of part with value. Experimental API!
+     * @deprecated Experimental API!
+     * @return Minimum with of part in pixels.
+     */
+    @Deprecated
+    public double getMinPartWidth() {
+        return getState().minWidth;
+    }
 }

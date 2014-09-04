@@ -8,6 +8,7 @@ package org.vaadin.alump.distributionbar.gwt.client.dom;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -30,6 +31,8 @@ public class ToolTipPresenter implements MouseOverHandler, MouseOutHandler,
     private final HashMap<Element, String> tooltips;
     private Element currentToolTip;
     private Element currentHoverElement;
+
+    //private final Logger LOGGER = Logger.getLogger(ToolTipPresenter.class.getName());
 
     public ToolTipPresenter() {
         tooltips = new HashMap<Element, String>();
@@ -209,7 +212,6 @@ public class ToolTipPresenter implements MouseOverHandler, MouseOutHandler,
                 if (currentToolTip == null) {
                     generateTooltip();
                 } else {
-
                     changeTooltipPosition(currentHoverElement);
                     currentToolTip.setInnerHTML(tooltips
                             .get(currentHoverElement));

@@ -18,6 +18,7 @@
 package org.vaadin.alump.distributionbar.gwt.client.dom;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
 
@@ -44,6 +45,8 @@ public class ElementBuilder {
             + "-value";
     protected static final String UNINITIALIZED_VALUE_CLASSNAME = GwtDistributionBar.CLASSNAME
             + "-uninitizalized";
+
+    //private final static Logger LOGGER = Logger.getLogger(ElementBuilder.class.getName());
 
     /**
      * Parent is needed to get access to DOM tree
@@ -152,11 +155,13 @@ public class ElementBuilder {
      * @param extraStyleName
      *            Extra style name(s) defined by used
      */
-    public void setPartClassNames(Element element, int index, int parts, String extraStyleName) {
+    public void setPartClassNames(Element element, int index, int styleIndex, int parts, String extraStyleName) {
         String styleName = GwtDistributionBar.CLASSNAME;
 
         // Allows styling like rounded corners
-        if (index == 0) {
+        if(parts == 1) {
+            styleName += "-only";
+        } else if (index == 0) {
             styleName += "-left";
         } else if (index == (parts - 1)) {
             styleName += "-right";
@@ -165,7 +170,7 @@ public class ElementBuilder {
         }
 
         element.setClassName(styleName);
-        element.addClassName(PART_CLASSNAME_PREFIX + String.valueOf(index + 1));
+        element.addClassName(PART_CLASSNAME_PREFIX + String.valueOf(styleIndex + 1));
         if(extraStyleName != null) {
             element.addClassName(extraStyleName);
         }
@@ -186,7 +191,7 @@ public class ElementBuilder {
     public void addPartElement(int index, int parts, int size, String title) {
 
         final Element element = createPartElement();
-        setPartClassNames(element, index, parts, null);
+        setPartClassNames(element, index, index, parts, null);
         element.setAttribute("title", title);
 
         Element textElem = Document.get().createSpanElement();
@@ -265,11 +270,11 @@ public class ElementBuilder {
         }
     }
 
-    public void changePartStyleName(int index, int parts, String styleName) {
+    public void changePartStyleName(int index, int styleIndex, int parts, String styleName) {
         Element element = getPartElement(index);
 
         if (element != null) {
-            setPartClassNames(element, index, parts, styleName);
+            setPartClassNames(element, index, styleIndex, parts, styleName);
         }
     }
 
@@ -277,7 +282,7 @@ public class ElementBuilder {
      * Update DOM presentation of distribution. This has to be called always
      * after changes are done to parts.
      */
-    public void updateParts(List<Integer> sizes) {
+    public void updateParts(List<Integer> sizes, double minElementWidth) {
 
         int totalSize = parent.totalSize();
 
@@ -289,7 +294,7 @@ public class ElementBuilder {
             int size = sizes.get(i);
 
             setPartElementSize(element, size, totalSize, sizes.size(),
-                    totalWidth);
+                    totalWidth, minElementWidth);
 
             Element nextElement = element.getNextSiblingElement();
             element = nextElement;
@@ -309,9 +314,11 @@ public class ElementBuilder {
      *            How many parts there are
      * @param parentSize
      *            Size of parent in pixels
+     * @param minElementSize
+     *            Minimum width of part with value
      */
     public void setPartElementSize(Element part, double size, double total,
-            double parts, double parentSize) {
+            double parts, double parentSize, double minElementSize) {
 
         double elementSize = 0.0;
         Style.Unit elementSizeUnit = Unit.PX;
@@ -320,7 +327,6 @@ public class ElementBuilder {
             elementSize = Math.floor(100.0 / parts);
             elementSizeUnit = Unit.PCT;
         } else {
-            final double minElementSize = 30.0;
             final double minTotalSize = minElementSize * parts;
             final double availableSize = parentSize - minTotalSize;
 
@@ -341,8 +347,7 @@ public class ElementBuilder {
      * @param unit
      *            New width unit
      */
-    public void setPartElementWidth(Element element, double width,
-            Style.Unit unit) {
+    public void setPartElementWidth(Element element, double width, Style.Unit unit) {
 
         element.getStyle().setWidth(width, unit);
     }

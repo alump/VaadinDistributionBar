@@ -14,6 +14,11 @@ import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.ui.AbstractComponentConnector;
 import com.vaadin.shared.ui.Connect;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SuppressWarnings("serial")
 @Connect(org.vaadin.alump.distributionbar.DistributionBar.class)
 public class DistributionBarConnector extends AbstractComponentConnector implements ClickListener {
@@ -23,6 +28,11 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
 	private boolean clicksConnected = false;
 
     public final int DELAYED_UPDATE_PARTS_MS = 400;
+
+    /**
+     * Map used to fix indexed when zero parts are removed before widget. Widget index -> original index map.
+     */
+    private Map<Integer,Integer> indexRepair;
 
     @Override
     public void init() {
@@ -54,15 +64,22 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
         	}
         }
 
-        getWidget().setNumberOfParts(getState().getParts().size());
+        List<DistributionBarState.Part> parts = getCleanedParts(getState().getParts());
+        getWidget().setNumberOfParts(parts.size());
 
-        for (int i = 0; i < getState().getParts().size(); ++i) {
-            DistributionBarState.Part part = getState().getParts().get(i);
+        for (int i = 0; i < parts.size(); ++i) {
+            DistributionBarState.Part part = parts.get(i);
             getWidget().setPartSize(i, part.getSize());
             getWidget().setPartTitle(i, part.getTitle());
             getWidget().setPartTooltip(i, part.getTooltip());
-            getWidget().setPartStyleName(i, part.getStyleName());
+            if(indexRepair != null) {
+                getWidget().setPartStyleName(i, indexRepair.get(i), part.getStyleName());
+            } else {
+                getWidget().setPartStyleName(i, i, part.getStyleName());
+            }
         }
+
+        getWidget().setMinPartWidth(getState().minWidth);
 
         getWidget().updateParts();
 
@@ -75,8 +92,37 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
         });
     }
 
+    protected List<DistributionBarState.Part> getCleanedParts(List<DistributionBarState.Part> parts) {
+        if(getState().zeroVisible) {
+            indexRepair = null;
+            return parts;
+        }
+
+        List<DistributionBarState.Part> cleaned = new ArrayList<DistributionBarState.Part>();
+        indexRepair = new HashMap<Integer,Integer>();
+
+        for(int i = 0; i < parts.size(); ++i) {
+            DistributionBarState.Part part = parts.get(i);
+            if(part.getSize() > 0.0) {
+                cleaned.add(part);
+                indexRepair.put(cleaned.size() - 1, i);
+            }
+        }
+
+        if(cleaned.isEmpty()) {
+            indexRepair = null;
+            return parts;
+        }
+
+        return cleaned;
+    }
+
 	@Override
 	public void onItemClicked(int index) {
-		serverRpc.onItemClicked(index);
+        if(indexRepair != null) {
+            serverRpc.onItemClicked(indexRepair.get(index));
+        } else {
+            serverRpc.onItemClicked(index);
+        }
 	}
 }

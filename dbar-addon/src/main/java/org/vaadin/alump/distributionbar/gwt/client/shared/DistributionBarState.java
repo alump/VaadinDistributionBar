@@ -11,6 +11,8 @@ public class DistributionBarState extends AbstractComponentState {
 
 	public boolean sendClicks = false;
     private List<Part> parts = new ArrayList<Part>();
+    public boolean zeroVisible = true;
+    public double minWidth = 30.0;
 
     /**
      * Internal storage class for part details
