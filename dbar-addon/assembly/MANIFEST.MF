@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: DistributionBar
+Implementation-Title: ${Implementation-Title}
 Implementation-Version: ${Implementation-Version}
 Vaadin-Package-Version: 1
 Vaadin-Widgetsets: ${Vaadin-Widgetset}
