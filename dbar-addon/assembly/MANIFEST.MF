@@ -5,3 +5,4 @@ Vaadin-Package-Version: 1
 Vaadin-Widgetsets: ${Vaadin-Widgetset}
 Vaadin-Addon: ${Vaadin-Addon}
 Implementation-Vendor: ${Implementation-Vendor}
+Vaadin-Stylesheets: ${Vaadin-Stylesheets}

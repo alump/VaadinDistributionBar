@@ -7,15 +7,15 @@
 	<packaging>war</packaging>
 	<name>DistributionBar demo</name>
 	<description>Distribution Bar Demo Application</description>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- May be overridden by the build system -->
 		<license.short.name>apache2</license.short.name>
-		<vaadin.version>7.2.6</vaadin.version>
-		<vaadin.plugin.version>7.2.6</vaadin.plugin.version>
+		<vaadin.version>7.4.8</vaadin.version>
+		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 
 		<Implementation-Version>${project.version}</Implementation-Version>
 		<!-- Must not change this because of the Directory -->
@@ -106,10 +106,11 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>clean</goal>
-							<goal>resources</goal>
-							<goal>compile</goal>
-							<goal>test</goal>
+                            <goal>resources</goal>
+                            <goal>update-widgetset</goal>
+                            <goal>compile-theme</goal>
+                            <goal>update-theme</goal>
+                            <goal>compile</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -164,17 +165,13 @@
 
 			<!-- Jetty is used for development testing -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.13.v20130916</version>
+				<version>9.2.6.v20141205</version>
 				<configuration>
-					<stopPort>9966</stopPort>
-					<stopKey>dbar</stopKey>
-					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<!-- make sure Jetty also finds the widgetset -->
-					<webAppConfig>
-						<contextPath>/dbar</contextPath>
-					</webAppConfig>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
 				</configuration>
 			</plugin>
 
@@ -217,9 +214,11 @@
 											[7.0-SNAPSHOT,)
 										</versionRange>
 										<goals>
-											<goal>resources</goal>
-											<goal>update-widgetset</goal>
-											<goal>compile</goal>
+                                            <goal>resources</goal>
+                                            <goal>update-widgetset</goal>
+                                            <goal>compile</goal>
+                                            <goal>update-theme</goal>
+                                            <goal>compile-theme</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -266,10 +265,11 @@
 						<executions>
 							<execution>
 								<goals>
-									<goal>clean</goal>
-									<goal>resources</goal>
-									<goal>compile</goal>
-									<goal>test</goal>
+                                    <goal>resources</goal>
+                                    <goal>update-widgetset</goal>
+                                    <goal>compile-theme</goal>
+                                    <goal>update-theme</goal>
+                                    <goal>compile</goal>
 								</goals>
 							</execution>
 						</executions>

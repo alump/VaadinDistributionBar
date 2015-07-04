@@ -35,6 +35,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
+import org.vaadin.alump.distributionbar.gwt.client.dom.ToolTipPresenter;
 
 /**
  * GwtDistributionBar is widget for presenting relative sizes of different
@@ -77,6 +78,10 @@ public class GwtDistributionBar extends Widget {
     private boolean zeroVisible = true;
 
     private double minPartWidth = 30.0;
+
+    private String tooltipStyleNames = "";
+
+    private ToolTipPresenter.TooltipClassNameProvider tooltipClassNameProvider;
     
     /**
      * Interface for click listeners
@@ -103,6 +108,10 @@ public class GwtDistributionBar extends Widget {
 
         // Make sure builder is initialized when constructor is called
         getBuilder();
+    }
+
+    public void setTooltipClassNameProvider(ToolTipPresenter.TooltipClassNameProvider provider) {
+        tooltipClassNameProvider = provider;
     }
     
     public void onAttach() {
@@ -158,6 +167,10 @@ public class GwtDistributionBar extends Widget {
             builder.setParent(this);
             builder.initRootElement();
             builder.addUninitializedWarning();
+        }
+
+        if(tooltipClassNameProvider != null) {
+            builder.setTooltipClassNameProvider(tooltipClassNameProvider);
         }
 
         return builder;

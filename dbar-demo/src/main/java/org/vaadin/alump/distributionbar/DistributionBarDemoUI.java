@@ -37,6 +37,7 @@ public class DistributionBarDemoUI extends UI {
     final static private int BAR_FIVE_PARTS = 2;
     final static private int BAR_SIX_PARTS = 11;
     final static private int BAR_SEVEN_PARTS = 3;
+    final static private int BAR_EIGHT_PARTS = 8;
 
     private final Random rand = new Random(0xDEADBEEF);
 
@@ -85,13 +86,26 @@ public class DistributionBarDemoUI extends UI {
         });
         buttonLayout.addComponent(random2Button);
 
+        Button themeButton = new Button("Toggle theme");
+        themeButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent clickEvent) {
+                if (getUI().getTheme().equals("demo2")) {
+                    getUI().setTheme("demo");
+                } else {
+                    getUI().setTheme("demo2");
+                }
+            }
+        });
+        buttonLayout.addComponent(themeButton);
+
         CheckBox shrink = new CheckBox("Shrink zero values");
         shrink.setImmediate(true);
         shrink.addValueChangeListener(new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
-                boolean shrink = (Boolean)event.getProperty().getValue();
-                for(DistributionBar bar : bars) {
+                boolean shrink = (Boolean) event.getProperty().getValue();
+                for (DistributionBar bar : bars) {
                     bar.setZeroSizedVisible(!shrink);
                 }
             }
@@ -105,14 +119,14 @@ public class DistributionBarDemoUI extends UI {
         barOne.addStyleName("my-bar-one");
         barOne.addDistributionBarClickListener(new DistributionBarClickListener() {
 
-			@Override
-			public void onItemClicked(int index) {
-				if (index == 0) {
-					Notification.show("Republican clicked!");
-				} else {
-					Notification.show("Democratic clicked!");
-				}
-			}
+            @Override
+            public void onItemClicked(int index) {
+                if (index == 0) {
+                    Notification.show("Republican clicked!");
+                } else {
+                    Notification.show("Democratic clicked!");
+                }
+            }
         });
         layout.addComponent(barOne);
         bars.add(barOne);
@@ -186,6 +200,14 @@ public class DistributionBarDemoUI extends UI {
             barSeven.setPartSize(i, 1 + i);
         }
         bars.add(barSeven);
+
+        DistributionBar barEight = new DistributionBar(BAR_EIGHT_PARTS);
+        barEight.setCaption("Override of min width of 100 pixels");
+        barEight.addStyleName("my-bar-eight");
+        barEight.setWidth(300, Unit.PIXELS);
+        barEight.setMinPartWidth(100);
+        layout.addComponent(barEight);
+        bars.add(barEight);
 
         return layout;
 
@@ -277,6 +299,14 @@ public class DistributionBarDemoUI extends UI {
         for (int i = 0; i < BAR_SEVEN_PARTS; ++i) {
             barSeven.setPartSize(i, 5 + rand.nextInt(15));
         }
+
+        // ----
+
+        DistributionBar barEight = bars.get(7);
+        for(int i = 0; i < BAR_EIGHT_PARTS; ++i) {
+            barEight.setPartSize(i, 1 + rand.nextInt(15));
+        }
+
     }
 
 }

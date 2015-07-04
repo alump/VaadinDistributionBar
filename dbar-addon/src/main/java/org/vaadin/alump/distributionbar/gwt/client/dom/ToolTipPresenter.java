@@ -20,6 +20,7 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+import javafx.scene.control.Tooltip;
 
 /**
  * Class that takes care of the tooltip presentation of Distribution Bar. Still
@@ -34,8 +35,18 @@ public class ToolTipPresenter implements MouseOverHandler, MouseOutHandler,
 
     //private final Logger LOGGER = Logger.getLogger(ToolTipPresenter.class.getName());
 
+    public interface TooltipClassNameProvider {
+        String getClassNames();
+    }
+
+    private TooltipClassNameProvider classNameProvider;
+
     public ToolTipPresenter() {
         tooltips = new HashMap<Element, String>();
+    }
+
+    public void setTooltipClassNameProvider(TooltipClassNameProvider provider) {
+        classNameProvider = provider;
     }
 
     /**
@@ -107,6 +118,10 @@ public class ToolTipPresenter implements MouseOverHandler, MouseOutHandler,
 
         currentToolTip = Document.get().createDivElement();
         currentToolTip.setClassName("alump-dbar-tooltip");
+
+        if(classNameProvider != null) {
+            currentToolTip.addClassName(classNameProvider.getClassNames());
+        }
 
         currentToolTip.setInnerHTML(tooltips.get(currentHoverElement));
 

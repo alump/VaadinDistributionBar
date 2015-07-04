@@ -5,6 +5,8 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
+import org.vaadin.alump.distributionbar.gwt.client.dom.ToolTipPresenter;
+import org.vaadin.alump.distributionbar.gwt.client.dom.ToolTipPresenter.TooltipClassNameProvider;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState;
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar.ClickListener;
@@ -30,13 +32,20 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
     public final int DELAYED_UPDATE_PARTS_MS = 400;
 
     /**
-     * Map used to fix indexed when zero parts are removed before widget. Widget index -> original index map.
+     * Map used to fix indexed when zero parts are removed before widget. Widget index to original index map.
      */
     private Map<Integer,Integer> indexRepair;
 
     @Override
     public void init() {
         super.init();
+        getWidget().setTooltipClassNameProvider(new TooltipClassNameProvider() {
+
+            @Override
+            public String getClassNames() {
+                return DistributionBarConnector.this.getConnection().getUIConnector().getWidget().getParent().getStyleName();
+            }
+        });
     }
 
     @Override

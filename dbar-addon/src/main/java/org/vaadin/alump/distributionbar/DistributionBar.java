@@ -272,21 +272,17 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
     }
 
     /**
-     * Define minimum with of part with value. Experimental API!
-     * @deprecated Experimental API!
+     * Define minimum with of part with value. Value will be overridden if there isn't enough space.
      * @param pixels With in pixels.
      */
-    @Deprecated
     public void setMinPartWidth(double pixels) {
         getState().minWidth = pixels;
     }
 
     /**
-     * Get minimum width of part with value. Experimental API!
-     * @deprecated Experimental API!
+     * Get minimum width of part with value.
      * @return Minimum with of part in pixels.
      */
-    @Deprecated
     public double getMinPartWidth() {
         return getState().minWidth;
     }

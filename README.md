@@ -8,7 +8,7 @@ e.g. distribution of votes).
 
 Links:
 ------
-  * [Demo application](http://siika.fi:8080/DistributionBarDemo)
+  * [Demo application](http://app.siika.fi/DistributionBarDemo/)
   * [Source code](https://github.com/alump/VaadinDistributionBar)
   * [Issue tracker](https://github.com/alump/VaadinDistributionBar/issues)
   * [Vaadin Directory](https://vaadin.com/directory#addon/distributionbar)

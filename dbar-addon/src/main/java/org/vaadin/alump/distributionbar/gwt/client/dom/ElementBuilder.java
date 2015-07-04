@@ -31,6 +31,8 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
+import javax.tools.Tool;
+
 /**
  * This is help class for GwtDistributionBar and so is designed to be used only
  * by it. It's split to own class to allow later totally browser specific
@@ -58,6 +60,8 @@ public class ElementBuilder {
      */
     protected ToolTipPresenter tooltip;
 
+    protected ToolTipPresenter.TooltipClassNameProvider tooltipClassNameProvider;
+
     /**
      * Empty constructor for GWT.create. setParent must be called always after
      * this to have instance correctly initialized.
@@ -66,9 +70,16 @@ public class ElementBuilder {
 
     }
 
+    public void setTooltipClassNameProvider(ToolTipPresenter.TooltipClassNameProvider provider) {
+        tooltipClassNameProvider = provider;
+    }
+
     private ToolTipPresenter getToolTip() {
         if (tooltip == null) {
             tooltip = new ToolTipPresenter();
+            if(tooltipClassNameProvider != null) {
+                tooltip.setTooltipClassNameProvider(tooltipClassNameProvider);
+            }
             parent.addDomHandler(tooltip, MouseOutEvent.getType());
             parent.addDomHandler(tooltip, MouseOverEvent.getType());
             parent.addDomHandler(tooltip, MouseMoveEvent.getType());
@@ -288,6 +299,10 @@ public class ElementBuilder {
 
         Element element = getFirstPartElement();
         int totalWidth = getFullWidth();
+
+        if(totalWidth < minElementWidth * (double)sizes.size()) {
+            minElementWidth = (double)totalWidth / (double)sizes.size();
+        }
 
         for (int i = 0; (i < sizes.size()) && (element != null); ++i) {
 

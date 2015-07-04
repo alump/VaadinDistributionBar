@@ -2,3 +2,5 @@
 /.settings
 .idea/
 distributionbar.iml
+*.scss.cache
+*.css
