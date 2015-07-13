@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.data.Property;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
-import org.vaadin.alump.distributionbar.DistributionBar.DistributionBarClickListener;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Button.ClickEvent;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -56,7 +54,8 @@ public class DistributionBarDemoUI extends UI {
         layout.setMargin(true);
 
         Label header = new Label(
-                "Distribution Bar Demo! Remember to push the button! Tooltips are shown when you move mouse above the distribution bars. Not all parts have tooltips in this demo.");
+                "Distribution Bar Demo! <b>Remember to push the random button!</b> Tooltips are shown when you move "
+                + "mouse above the distribution bars. Not all parts have tooltips in this demo.", ContentMode.HTML);
         layout.addComponent(header);
 
         HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -64,50 +63,28 @@ public class DistributionBarDemoUI extends UI {
         buttonLayout.setSpacing(true);
         layout.addComponent(buttonLayout);
 
-        Button randomButton = new Button(
-                "Randomize");
-        randomButton.addClickListener(new Button.ClickListener() {
-
-            public void buttonClick(ClickEvent event) {
-                randomUpdate(false);
-
-            }
-        });
+        Button randomButton = new Button("Randomize", event -> randomUpdate(false));
         buttonLayout.addComponent(randomButton);
 
-        Button random2Button = new Button(
-                "Randomize2");
-        random2Button.addClickListener(new Button.ClickListener() {
-
-            public void buttonClick(ClickEvent event) {
-                randomUpdate(true);
-
-            }
-        });
+        Button random2Button = new Button("Randomize2", event -> randomUpdate(true));
         buttonLayout.addComponent(random2Button);
 
         Button themeButton = new Button("Toggle theme");
-        themeButton.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent clickEvent) {
-                if (getUI().getTheme().equals("demo2")) {
-                    getUI().setTheme("demo");
-                } else {
-                    getUI().setTheme("demo2");
-                }
+        themeButton.addClickListener(event ->  {
+            if (getUI().getTheme().equals("demo2")) {
+                getUI().setTheme("demo");
+            } else {
+                getUI().setTheme("demo2");
             }
         });
         buttonLayout.addComponent(themeButton);
 
         CheckBox shrink = new CheckBox("Shrink zero values");
         shrink.setImmediate(true);
-        shrink.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                boolean shrink = (Boolean) event.getProperty().getValue();
-                for (DistributionBar bar : bars) {
-                    bar.setZeroSizedVisible(!shrink);
-                }
+        shrink.addValueChangeListener(event -> {
+            boolean shrinkIt = (Boolean) event.getProperty().getValue();
+            for (DistributionBar bar : bars) {
+                bar.setZeroSizedVisible(!shrinkIt);
             }
         });
         buttonLayout.addComponent(shrink);
@@ -117,15 +94,11 @@ public class DistributionBarDemoUI extends UI {
         barOne.setCaption("Senate (with clicks):");
         barOne.setWidth("100%");
         barOne.addStyleName("my-bar-one");
-        barOne.addDistributionBarClickListener(new DistributionBarClickListener() {
-
-            @Override
-            public void onItemClicked(int index) {
-                if (index == 0) {
-                    Notification.show("Republican clicked!");
-                } else {
-                    Notification.show("Democratic clicked!");
-                }
+        barOne.addDistributionBarClickListener(event -> {
+            if (event.getPartIndex() == 0) {
+                Notification.show("Republican clicked!");
+            } else {
+                Notification.show("Democratic clicked!");
             }
         });
         layout.addComponent(barOne);
@@ -144,7 +117,8 @@ public class DistributionBarDemoUI extends UI {
         bars.add(barTwo);
 
         DistributionBar barThree = new DistributionBar(BAR_THREE_PARTS);
-        barThree.setCaption("Maaaany parts with default styling");
+        barThree.addDistributionBarClickListener(event -> showClickDetails(event));
+        barThree.setCaption("Maaaany parts with default styling (and click details)");
         barThree.setWidth("100%");
         barThree.addStyleName("my-bar-three");
         layout.addComponent(barThree);
@@ -213,13 +187,35 @@ public class DistributionBarDemoUI extends UI {
 
     }
 
-    private final Button.ClickListener randomButtonListener = new Button.ClickListener() {
+    private void showClickDetails(DistributionBarClickEvent event) {
+        Window window = new Window();
+        window.setResizable(false);
+        window.setCaption("Click details");
+        window.setPositionY(event.getClientY());
+        window.setPositionX(event.getClientX());
 
-        public void buttonClick(ClickEvent event) {
-            randomUpdate(false);
+        VerticalLayout layout = new VerticalLayout();
+        window.setContent(layout);
+        layout.setSpacing(true);
+        layout.setMargin(true);
 
-        }
-    };
+        layout.addComponent(createLabel("Part index", "#" + event.getPartIndex() + ", of " + event.getDistributionBar().getNumberOfParts() + " items"));
+        layout.addComponent(createLabel("Part size", "" + event.getDistributionBar().getPartSize(event.getPartIndex())));
+        String title = event.getDistributionBar().getPartTitle(event.getPartIndex());
+        layout.addComponent(createLabel("Part title", title == null ? "null" : title));
+        layout.addComponent(createLabel("Client coordinates", "X: " + event.getClientX() + ", Y:" + event.getClientY()));
+        layout.addComponent(createLabel("Relative coordinates", "X: " + event.getRelativeX() + ", Y:" + event.getRelativeY()));
+        layout.addComponent(createLabel("Modifiers", "Shift:"  + event.isShiftKey() + ", Alt:" + event.isAltKey()
+                + ", Ctrl:" + event.isCtrlKey() + ", Meta:" + event.isMetaKey()));
+
+        getUI().addWindow(window);
+    }
+
+    private static Label createLabel(String caption, String text) {
+        Label label = new Label(text);
+        label.setCaption(caption);
+        return label;
+    }
 
     private void randomUpdate(boolean useZeros) {
 

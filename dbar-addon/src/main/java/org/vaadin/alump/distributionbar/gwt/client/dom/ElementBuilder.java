@@ -199,7 +199,7 @@ public class ElementBuilder {
      * @param title
      *            Title of part added
      */
-    public void addPartElement(int index, int parts, int size, String title) {
+    public void addPartElement(int index, int parts, double size, String title) {
 
         final Element element = createPartElement();
         setPartClassNames(element, index, index, parts, null);
@@ -293,9 +293,9 @@ public class ElementBuilder {
      * Update DOM presentation of distribution. This has to be called always
      * after changes are done to parts.
      */
-    public void updateParts(List<Integer> sizes, double minElementWidth) {
+    public void updateParts(List<Double> sizes, double minElementWidth) {
 
-        int totalSize = parent.totalSize();
+        double totalSize = parent.totalSize();
 
         Element element = getFirstPartElement();
         int totalWidth = getFullWidth();
@@ -306,7 +306,7 @@ public class ElementBuilder {
 
         for (int i = 0; (i < sizes.size()) && (element != null); ++i) {
 
-            int size = sizes.get(i);
+            double size = sizes.get(i);
 
             setPartElementSize(element, size, totalSize, sizes.size(),
                     totalWidth, minElementWidth);

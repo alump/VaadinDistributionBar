@@ -17,10 +17,11 @@
  */
 package org.vaadin.alump.distributionbar;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.vaadin.alump.distributionbar.gwt.client.connect.DistributionBarServerRpc;
+import com.vaadin.shared.MouseEventDetails;
+import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarServerRpc;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState.Part;
 
@@ -34,13 +35,20 @@ import com.vaadin.ui.AbstractComponent;
  * used can limit the amount of parts that will fit to screen.
  */
 @SuppressWarnings("serial")
-public class DistributionBar extends AbstractComponent implements DistributionBarServerRpc {
+public class DistributionBar extends AbstractComponent {
 	
-	private List<DistributionBarClickListener> clickListeners = new LinkedList<DistributionBarClickListener>();
-	
-	public interface DistributionBarClickListener {
-		void onItemClicked(int index);
-	}
+	private List<DistributionBarClickListener> clickListeners = new ArrayList<DistributionBarClickListener>();
+
+    private final DistributionBarServerRpc serverRpc = new DistributionBarServerRpc() {
+        @Override
+        public void onItemClicked(int index, MouseEventDetails mouseEventDetails) {
+            DistributionBarClickEvent event = new DistributionBarClickEvent(DistributionBar.this, index, mouseEventDetails);
+
+            for (DistributionBarClickListener listener : clickListeners) {
+                listener.onDistributionBarClicked(event);
+            }
+        }
+    };
 
     /**
      * Will make distribution bar with 2 parts (size value zero).
@@ -63,7 +71,7 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
                     + " parts given");
         }
 
-    	registerRpc(this);
+    	registerRpc(serverRpc);
         for (int i = 0; i < numberOfParts; ++i) {
             getState().getParts().add(new Part());
         }
@@ -77,10 +85,8 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      *            Part sizes in integer array. Must have at least 2 sizes. If
      *            less two parts are made with size zero.
      */
-    public DistributionBar(final int[] sizes) {
-
+    public DistributionBar(final double[] sizes) {
         this(sizes.length);
-
         this.updatePartSizes(sizes);
     }
 
@@ -97,7 +103,7 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      * @param partSizes
      *            Sizes in integer array
      */
-    public void updatePartSizes(int[] partSizes) {
+    public void updatePartSizes(double[] partSizes) {
         for (int i = 0; i < getNumberOfParts() && i < partSizes.length; ++i) {
             getState().getParts().get(i).setSize(partSizes[i]);
         }
@@ -113,7 +119,7 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      * @param tooltip
      *            Tooltip content is XHTML
      */
-    public void setupPart(int index, int size, String tooltip) {
+    public void setupPart(int index, double size, String tooltip) {
         setupPart(index, size, tooltip, null);
     }
 
@@ -129,7 +135,7 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      * @param styleName
      *            Stylename added to part
      */
-    public void setupPart(int index, int size, String tooltip, String styleName) {
+    public void setupPart(int index, double size, String tooltip, String styleName) {
 
         Part part = getState().getParts().get(index);
         part.setSize(size);
@@ -150,6 +156,16 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
     }
 
     /**
+     * Get current size of part
+     * @param index Index of part
+     * @return Size of part
+     * @throws IndexOutOfBoundsException If invalid index is given
+     */
+    public double getPartSize(int index) throws IndexOutOfBoundsException {
+        return getState().getParts().get(index).getSize();
+    }
+
+    /**
      * Change title of given part. This is normal HTML title attribute. For many
      * use cases tooltip is better option.
      * 
@@ -160,6 +176,16 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
      */
     public void setPartTitle(int index, String title) {
         getState().getParts().get(index).setTitle(title);
+    }
+
+    /**
+     * Get current title of part
+     * @param index Index of part
+     * @return Title of part
+     * @throws IndexOutOfBoundsException If invalid index is given
+     */
+    public String getPartTitle(int index) {
+        return getState().getParts().get(index).getTitle();
     }
 
     /**
@@ -220,13 +246,6 @@ public class DistributionBar extends AbstractComponent implements DistributionBa
             changeStatePartsSize(numberOfParts);
         }
     }
-
-	@Override
-	public void onItemClicked(int index) {
-		for (DistributionBarClickListener listener : clickListeners) {
-			listener.onItemClicked(index);
-		}
-	}
 	
 	/**
 	 * Add click listener

@@ -52,17 +52,17 @@ public class GwtDistributionBar extends Widget {
     /**
      * List of sizes of parts
      */
-    private final List<Integer> sizes;
+    private final List<Double> sizes;
 
     /**
      * Default size of part before it is defined
      */
-    private static final int DEFAULT_VALUE = 0;
+    private static final double DEFAULT_VALUE = 0.0;
 
     /**
      * Default title used
      */
-    private static final String DEFAULT_TITLE = new String();
+    private static final String DEFAULT_TITLE = "";
 
     /**
      * Instance that will take care of all DOM tree manipulations
@@ -90,8 +90,9 @@ public class GwtDistributionBar extends Widget {
     	/**
     	 * Called when item is clicked.
     	 * @param index Index of item clicked.
+         * @param event Click event
     	 */
-    	void onItemClicked(int index);
+    	void onItemClicked(int index, Event event);
     }
     
     /**
@@ -104,7 +105,7 @@ public class GwtDistributionBar extends Widget {
      */
     public GwtDistributionBar() {
 
-        sizes = new ArrayList<Integer>();
+        sizes = new ArrayList<Double>();
 
         // Make sure builder is initialized when constructor is called
         getBuilder();
@@ -149,7 +150,7 @@ public class GwtDistributionBar extends Widget {
 					Element child = Element.as(getElement().getChild(i));
 					if (child.isOrHasChild(target)) {
 						for (ClickListener listener : clickListeners) {
-							listener.onItemClicked(i);
+							listener.onItemClicked(i, event);
 						}
 						event.stopPropagation();
 						event.preventDefault();
@@ -218,9 +219,9 @@ public class GwtDistributionBar extends Widget {
      * 
      * @return Sum of all sizes. Can be zero!
      */
-    public int totalSize() {
-        int totalSize = 0;
-        for (Integer value : sizes) {
+    public double totalSize() {
+        double totalSize = 0;
+        for (Double value : sizes) {
             totalSize += value;
         }
         return totalSize;
@@ -235,7 +236,7 @@ public class GwtDistributionBar extends Widget {
      * @param size
      *            Size as integer
      */
-    public void setPartSize(int index, int size) {
+    public void setPartSize(int index, double size) {
         sizes.set(index, size);
     }
 

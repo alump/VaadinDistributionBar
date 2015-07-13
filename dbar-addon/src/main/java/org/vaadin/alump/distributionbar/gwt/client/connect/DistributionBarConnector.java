@@ -1,12 +1,11 @@
 package org.vaadin.alump.distributionbar.gwt.client.connect;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
-import org.vaadin.alump.distributionbar.gwt.client.dom.ToolTipPresenter;
+import com.google.gwt.user.client.Event;
+import com.vaadin.client.MouseEventDetailsBuilder;
+import com.vaadin.shared.MouseEventDetails;
 import org.vaadin.alump.distributionbar.gwt.client.dom.ToolTipPresenter.TooltipClassNameProvider;
+import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarServerRpc;
 import org.vaadin.alump.distributionbar.gwt.client.shared.DistributionBarState;
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar.ClickListener;
@@ -127,11 +126,15 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
     }
 
 	@Override
-	public void onItemClicked(int index) {
+	public void onItemClicked(int index, Event event) {
+        MouseEventDetails details = MouseEventDetailsBuilder
+                .buildMouseEventDetails(event, getWidget()
+                        .getElement());
+
         if(indexRepair != null) {
-            serverRpc.onItemClicked(indexRepair.get(index));
+            serverRpc.onItemClicked(indexRepair.get(index), details);
         } else {
-            serverRpc.onItemClicked(index);
+            serverRpc.onItemClicked(index, details);
         }
 	}
 }

@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.vaadin.alump.distributionbar</groupId>
 	<artifactId>dbar-addon</artifactId>
-	<packaging>jar</packaging>
-	<version>1.2.0</version>
+	<packaging>bundle</packaging>
+	<version>2.0.0-SNAPSHOT</version>
 	<name>DistributionBar addon</name>
 
 	<properties>
@@ -158,6 +158,36 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>
+							org.vaadin.alump.distributionbar,
+							org.vaadin.alump.distributionbar.client.shared.*
+						</Export-Package>
+						<Import-Package>com.vaadin.data;version="[7.4,8)",
+							com.vaadin.server;version="[7.4,8)",
+							com.vaadin.shared;version="[7.4,8)",
+							com.vaadin.shared.communication;version="[7.4,8)",
+							com.vaadin.shared.ui;version="[7.4,8)",
+							com.vaadin.ui;version="[7.4,8)"</Import-Package>
+					</instructions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
