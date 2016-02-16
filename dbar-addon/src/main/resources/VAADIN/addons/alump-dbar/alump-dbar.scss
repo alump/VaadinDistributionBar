@@ -14,6 +14,19 @@
     .alump-dbar-value {
       padding: 0px 5px 0px 12px;
       line-height: normal;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+    }
+
+    .alump-dbar-part {
+      transition: width 2s;
+      -moz-transition: width 2s;
+      -webkit-transition: width 2s;
+      -o-transition: width 2s;
     }
 
     .alump-dbar-left {
@@ -23,10 +36,6 @@
       padding: 5px 0px 5px 0px;
       vertical-align: middle;
       border-radius: 15px 0px 0px 15px;
-      transition: width 2s;
-      -moz-transition: width 2s;
-      -webkit-transition: width 2s;
-      -o-transition: width 2s;
     }
 
     .alump-dbar-middle {
@@ -35,10 +44,6 @@
       text-align: left;
       padding: 5px 0px 5px 0px;
       vertical-align: middle;
-      transition: width 2s;
-      -moz-transition: width 2s;
-      -webkit-transition: width 2s;
-      -o-transition: width 2s;
     }
 
     .alump-dbar-right {
@@ -48,10 +53,6 @@
       padding: 5px 0px 5px 0px;
       vertical-align: middle;
       border-radius: 0px 15px 15px 0px;
-      transition: width 2s;
-      -moz-transition: width 2s;
-      -webkit-transition: width 2s;
-      -o-transition: width 2s;
     }
 
     .alump-dbar-only {
@@ -61,10 +62,6 @@
       padding: 5px 0px 5px 0px;
       vertical-align: middle;
       border-radius: 15px 15px 15px 15px;
-      transition: width 2s;
-      -moz-transition: width 2s;
-      -webkit-transition: width 2s;
-      -o-transition: width 2s;
     }
 
     .alump-dbar-part-1 {

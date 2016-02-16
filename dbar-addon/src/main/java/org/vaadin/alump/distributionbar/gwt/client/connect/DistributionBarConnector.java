@@ -77,7 +77,7 @@ public class DistributionBarConnector extends AbstractComponentConnector impleme
 
         for (int i = 0; i < parts.size(); ++i) {
             DistributionBarState.Part part = parts.get(i);
-            getWidget().setPartSize(i, part.getSize());
+            getWidget().setPartSize(i, part.getSize(), part.getCaption());
             getWidget().setPartTitle(i, part.getTitle());
             getWidget().setPartTooltip(i, part.getTooltip());
             if(indexRepair != null) {

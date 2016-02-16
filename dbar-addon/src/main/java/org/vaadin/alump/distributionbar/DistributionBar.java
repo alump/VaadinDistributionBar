@@ -95,6 +95,11 @@ public class DistributionBar extends AbstractComponent {
         return (DistributionBarState) super.getState();
     }
 
+    @Override
+    public DistributionBarState getState(boolean markDirty) {
+        return (DistributionBarState) super.getState(markDirty);
+    }
+
     /**
      * Update multiple sizes once. If given list is smaller than number of parts
      * then parts at the end will not be updated. If given list has more sizes
@@ -129,7 +134,7 @@ public class DistributionBar extends AbstractComponent {
      * @param index
      *            Index of part [0..N]. Only give valid indexes.
      * @param size
-     *            Size as integer number
+     *            Size of part (0.0 or larger)
      * @param tooltip
      *            Tooltip content is XHTML
      * @param styleName
@@ -149,20 +154,46 @@ public class DistributionBar extends AbstractComponent {
      * @param index
      *            Index of part [0..N]. Only give valid indexes.
      * @param size
-     *            Size as integer number
+     *            Size of part (0.0 or larger)
+     * @return Reference to DistributionBar to allow call chaining
      */
-    public void setPartSize(int index, int size) {
+    public DistributionBar setPartSize(int index, double size) {
+        if(size < 0.0) {
+            throw new IllegalArgumentException("Size must be zero or larger");
+        }
         getState().getParts().get(index).setSize(size);
+        return this;
+    }
+
+    /**
+     * Change both size and caption of part
+     * @param index
+     *            Index of part [0..N]. Only give valid indexes.
+     * @param size
+     *            Size of part (0.0 or larger)
+     * @param caption
+     *            Caption of part (null to show value)
+     * @return Reference to DistributionBar to allow call chaining
+     */
+    public DistributionBar setPartSize(int index, double size, String caption) {
+        if(size < 0.0) {
+            throw new IllegalArgumentException("Size must be zero or larger (" + size + ")");
+        }
+        Part part = getState().getParts().get(index);
+        part.setSize(size);
+        part.setCaption(caption);
+
+        return this;
     }
 
     /**
      * Get current size of part
      * @param index Index of part
-     * @return Size of part
+     * @return Size of part (0 or larger)
      * @throws IndexOutOfBoundsException If invalid index is given
      */
     public double getPartSize(int index) throws IndexOutOfBoundsException {
-        return getState().getParts().get(index).getSize();
+        return getState(false).getParts().get(index).getSize();
     }
 
     /**
@@ -173,9 +204,36 @@ public class DistributionBar extends AbstractComponent {
      *            Index of part [0..N]. Only give valid indexes.
      * @param title
      *            Title for part
+     * @return Reference to DistributionBar to allow call chaining
      */
-    public void setPartTitle(int index, String title) {
+    public DistributionBar setPartTitle(int index, String title) {
         getState().getParts().get(index).setTitle(title);
+        return this;
+    }
+
+    /**
+     * Get current caption of part. If not null, will replace number in bar element.
+     * @param index Index of part
+     * @return Caption of part, null if size of part is used
+     * @throws IndexOutOfBoundsException If invalid index is given
+     */
+    public String getPartCaption(int index) {
+        return getState(false).getParts().get(index).getTitle();
+    }
+
+    /**
+     * Change caption of given part.
+     *
+     * @param index
+     *            Index of part [0..N]. Only give valid indexes.
+     * @param caption
+     *            Caption of part (null to show value)
+     * @return Reference to DistributionBar to allow call chaining
+     *
+     */
+    public DistributionBar setPartCaption(int index, String caption) {
+        getState().getParts().get(index).setCaption(caption);
+        return this;
     }
 
     /**
@@ -196,9 +254,11 @@ public class DistributionBar extends AbstractComponent {
      * @param tooltip
      *            Content of tooltip (empty is do not show tooltip). Content is
      *            given in XHTML format.
+     * @return Reference to DistributionBar to allow call chaining
      */
-    public void setPartTooltip(int index, String tooltip) {
-        getState().getParts().get(index).setTooltip(tooltip);
+    public DistributionBar setPartTooltip(int index, String tooltip) {
+        getState(false).getParts().get(index).setTooltip(tooltip);
+        return this;
     }
 
     /**
@@ -208,9 +268,11 @@ public class DistributionBar extends AbstractComponent {
      *            Index of part [0..N]. Only give valid indexes.
      * @param styleName
      *            Style name of part
+     * @return Reference to DistributionBar to allow call chaining
      */
-    public void setPartStyleName(int index, String styleName) {
+    public DistributionBar setPartStyleName(int index, String styleName) {
         getState().getParts().get(index).setStyleName(styleName);
+        return this;
     }
 
     /**

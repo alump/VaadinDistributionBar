@@ -20,6 +20,7 @@ public class DistributionBarState extends AbstractComponentState {
     public static class Part implements Serializable {
 
         private double size;
+        private String caption;
         private String title;
         private String tooltip;
         private String styleName;
@@ -40,6 +41,14 @@ public class DistributionBarState extends AbstractComponentState {
 
         public double getSize() {
             return size;
+        }
+
+        public void setCaption(String caption) {
+            this.caption = caption;
+        }
+
+        public String getCaption() {
+            return caption;
         }
 
         public void setTitle(String title) {

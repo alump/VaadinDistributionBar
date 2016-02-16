@@ -37,6 +37,9 @@ public class DistributionBarDemoUI extends UI {
     final static private int BAR_SEVEN_PARTS = 3;
     final static private int BAR_EIGHT_PARTS = 8;
 
+    final static private String TYPES[] = {"cows", "chickens", "cats", "cookies", "commandos", "canadians", "cooks",
+            "captains", "cents", "caught exceptions"};
+
     private final Random rand = new Random(0xDEADBEEF);
 
     private Label changingLabel;
@@ -109,10 +112,12 @@ public class DistributionBarDemoUI extends UI {
         barTwo.setWidth("100%");
         barTwo.addStyleName("my-bar-two");
         // REMEMBER THAT tooltip is XHTML! Escape < and >!
-        barTwo.setPartTooltip(0, "Check the one on the right-&gt;");
-        barTwo.setPartTooltip(1,
-                "<img src=\"http://alump.iki.fi/avatar.png\" />");
-        barTwo.setPartTooltip(2, "&lt;- Check the one on the left");
+        barTwo.setPartTooltip(0, "Check the one on the right-&gt;")
+                .setPartCaption(0, "Blue");
+        barTwo.setPartTooltip(1, "<img src=\"http://alump.iki.fi/avatar.png\" />")
+                .setPartCaption(1, "Yellow");
+        barTwo.setPartTooltip(2, "&lt;- Check the one on the left")
+                .setPartCaption(2, "Red");
         layout.addComponent(barTwo);
         bars.add(barTwo);
 
@@ -223,8 +228,8 @@ public class DistributionBarDemoUI extends UI {
         int chairs = 100;
         int groupA = useZeros ? (rand.nextInt(2) * 25) : rand.nextInt(chairs + 1);
         int groupB = chairs - groupA;
-        barOne.setPartSize(0, groupA);
-        barOne.setPartSize(1, groupB);
+        barOne.setPartSize(0, groupA, Integer.toString(groupA) + " votes")
+            .setPartSize(1, groupB, Integer.toString(groupB) + " votes");
 
         // ----
 
@@ -256,9 +261,11 @@ public class DistributionBarDemoUI extends UI {
         DistributionBar barFour = bars.get(3);
         for (int i = 0; i < BAR_FOUR_PARTS; ++i) {
             if(useZeros && rand.nextBoolean()) {
-                barFour.setPartSize(i, 0);
+                barFour.setPartSize(i, 0, null);
             } else {
-                barFour.setPartSize(i, rand.nextInt(10));
+                int value = rand.nextInt(10);
+                String caption = value == 0 ? null : Integer.toString(value) + " " + TYPES[i];
+                barFour.setPartSize(i, value, caption);
             }
         }
 
@@ -269,7 +276,9 @@ public class DistributionBarDemoUI extends UI {
             if(useZeros && rand.nextBoolean()) {
                 barFive.setPartSize(i, rand.nextInt(1));
             } else {
-                barFive.setPartSize(i, rand.nextInt(10000000));
+                int value = rand.nextInt(10000000);
+                barFive.setPartSize(i, value,
+                        i == 0 ? Integer.toString(value) + " said YES!" : Integer.toString(value) + " said NO!");
             }
         }
 
@@ -300,7 +309,8 @@ public class DistributionBarDemoUI extends UI {
 
         DistributionBar barEight = bars.get(7);
         for(int i = 0; i < BAR_EIGHT_PARTS; ++i) {
-            barEight.setPartSize(i, 1 + rand.nextInt(15));
+            int value = 1 + rand.nextInt(15);
+            barEight.setPartSize(i, value);
         }
 
     }

@@ -17,10 +17,7 @@
  */
 package org.vaadin.alump.distributionbar.gwt.client;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import org.vaadin.alump.distributionbar.gwt.client.dom.ElementBuilder;
@@ -52,7 +49,12 @@ public class GwtDistributionBar extends Widget {
     /**
      * List of sizes of parts
      */
-    private final List<Double> sizes;
+    private final List<Double> sizes = new ArrayList<Double>();
+
+    /**
+     * Index to optional caption map
+     */
+    private final Map<Integer,String> captions = new HashMap<Integer,String>();
 
     /**
      * Default size of part before it is defined
@@ -75,11 +77,7 @@ public class GwtDistributionBar extends Widget {
 
     public final static int DELAYED_UPDATE_MS = 300;
 
-    private boolean zeroVisible = true;
-
     private double minPartWidth = 30.0;
-
-    private String tooltipStyleNames = "";
 
     private ToolTipPresenter.TooltipClassNameProvider tooltipClassNameProvider;
     
@@ -104,9 +102,6 @@ public class GwtDistributionBar extends Widget {
      * Constructor
      */
     public GwtDistributionBar() {
-
-        sizes = new ArrayList<Double>();
-
         // Make sure builder is initialized when constructor is called
         getBuilder();
     }
@@ -204,6 +199,7 @@ public class GwtDistributionBar extends Widget {
         }
 
         sizes.clear();
+        captions.clear();
         getBuilder().initRootElement();
 
         for (int i = 0; i < parts; ++i) {
@@ -235,9 +231,16 @@ public class GwtDistributionBar extends Widget {
      *            Index of part [0...N]
      * @param size
      *            Size as integer
+     * @param caption
+     *            Caption shown in element, if not null
      */
-    public void setPartSize(int index, double size) {
+    public void setPartSize(int index, double size, String caption) {
         sizes.set(index, size);
+        if(caption != null) {
+            captions.put(index, caption);
+        } else {
+            captions.remove(index);
+        }
     }
 
     /**
@@ -305,7 +308,7 @@ public class GwtDistributionBar extends Widget {
     }
 
     private void callBuilderToUpdateParts() {
-        getBuilder().updateParts(sizes, minPartWidth);
+        getBuilder().updateParts(sizes, captions, minPartWidth);
     }
 
     /**

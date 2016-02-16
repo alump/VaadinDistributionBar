@@ -18,6 +18,7 @@
 package org.vaadin.alump.distributionbar.gwt.client.dom;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.vaadin.alump.distributionbar.gwt.client.GwtDistributionBar;
@@ -41,8 +42,8 @@ import javax.tools.Tool;
  */
 public class ElementBuilder {
 
-    protected static final String PART_CLASSNAME_PREFIX = GwtDistributionBar.CLASSNAME
-            + "-part-";
+    protected static final String PART_CLASSNAME = GwtDistributionBar.CLASSNAME + "-part";
+    protected static final String PART_CLASSNAME_PREFIX = PART_CLASSNAME + "-";
     protected static final String PART_VALUE_CLASSNAME = GwtDistributionBar.CLASSNAME
             + "-value";
     protected static final String UNINITIALIZED_VALUE_CLASSNAME = GwtDistributionBar.CLASSNAME
@@ -181,6 +182,7 @@ public class ElementBuilder {
         }
 
         element.setClassName(styleName);
+        element.addClassName(PART_CLASSNAME);
         element.addClassName(PART_CLASSNAME_PREFIX + String.valueOf(styleIndex + 1));
         if(extraStyleName != null) {
             element.addClassName(extraStyleName);
@@ -293,7 +295,7 @@ public class ElementBuilder {
      * Update DOM presentation of distribution. This has to be called always
      * after changes are done to parts.
      */
-    public void updateParts(List<Double> sizes, double minElementWidth) {
+    public void updateParts(List<Double> sizes, Map<Integer,String> captions, double minElementWidth) {
 
         double totalSize = parent.totalSize();
 
@@ -308,8 +310,13 @@ public class ElementBuilder {
 
             double size = sizes.get(i);
 
+            String caption = captions.get(i);
+            if(caption == null) {
+                caption = String.valueOf(size);
+            }
+
             setPartElementSize(element, size, totalSize, sizes.size(),
-                    totalWidth, minElementWidth);
+                    totalWidth, minElementWidth, caption);
 
             Element nextElement = element.getNextSiblingElement();
             element = nextElement;
@@ -331,9 +338,11 @@ public class ElementBuilder {
      *            Size of parent in pixels
      * @param minElementSize
      *            Minimum width of part with value
+     * @param caption
+     *            Caption shown in element
      */
     public void setPartElementSize(Element part, double size, double total,
-            double parts, double parentSize, double minElementSize) {
+            double parts, double parentSize, double minElementSize, String caption) {
 
         double elementSize = 0.0;
         Style.Unit elementSizeUnit = Unit.PX;
@@ -349,7 +358,7 @@ public class ElementBuilder {
         }
 
         setPartElementWidth(part, elementSize, elementSizeUnit);
-        setPartElementValueText(part, String.valueOf(size));
+        setPartElementValueText(part, caption);
     }
 
     /**
