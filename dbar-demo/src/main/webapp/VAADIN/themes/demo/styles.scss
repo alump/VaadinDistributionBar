@@ -1,10 +1,10 @@
-@import "../reindeer/reindeer.scss";
+@import "../valo/valo.scss";
 @import "addons";
 @import "demo";
 
 .demo {
 
-  @include reindeer;
+  @include valo;
   @include addons;
   @include demo;
 

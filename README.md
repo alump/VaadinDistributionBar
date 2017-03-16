@@ -6,6 +6,9 @@ e.g. distribution of votes).
 [![Build Status](http://siika.fi:8888/jenkins/job/Distribution%20Bar%20(Vaadin)/badge/icon)](http://siika.fi:8888/jenkins/job/Distribution%20Bar%20(Vaadin)/)
 
 ## Release Notes:
+### 3.0.0 (2017-03-16)
+- Vaadin 8 support
+
 ### 2.0.0 (2016-02-16)
 - Version jumped to 2.x as some API changes
 - OSGi bundled

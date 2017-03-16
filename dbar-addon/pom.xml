@@ -5,12 +5,12 @@
 	<groupId>org.vaadin.alump.distributionbar</groupId>
 	<artifactId>dbar-addon</artifactId>
 	<packaging>bundle</packaging>
-	<version>2.0.0</version>
+	<version>3.0.0</version>
 	<name>DistributionBar addon</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>7.6.2</vaadin.version>
+		<vaadin.version>8.0.2</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 
 		<!-- ZIP Manifest fields -->
@@ -103,8 +103,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
@@ -169,12 +169,12 @@
 							org.vaadin.alump.distributionbar,
 							org.vaadin.alump.distributionbar.client.shared.*
 						</Export-Package>
-						<Import-Package>com.vaadin.data;version="[7.4,8)",
-							com.vaadin.server;version="[7.4,8)",
-							com.vaadin.shared;version="[7.4,8)",
-							com.vaadin.shared.communication;version="[7.4,8)",
-							com.vaadin.shared.ui;version="[7.4,8)",
-							com.vaadin.ui;version="[7.4,8)"</Import-Package>
+						<Import-Package>com.vaadin.data;version="[8.0,9)",
+							com.vaadin.server;version="[8.0,9)",
+							com.vaadin.shared;version="[8.0,9)",
+							com.vaadin.shared.communication;version="[8.0,9)",
+							com.vaadin.shared.ui;version="[8.0,9)",
+							com.vaadin.ui;version="[8.0,9)"</Import-Package>
 					</instructions>
 				</configuration>
 				<executions>

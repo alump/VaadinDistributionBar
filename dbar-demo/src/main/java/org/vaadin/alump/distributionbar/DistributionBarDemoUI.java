@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 
 import com.vaadin.annotations.Theme;
@@ -72,20 +72,9 @@ public class DistributionBarDemoUI extends UI {
         Button random2Button = new Button("Randomize2", event -> randomUpdate(true));
         buttonLayout.addComponent(random2Button);
 
-        Button themeButton = new Button("Toggle theme");
-        themeButton.addClickListener(event ->  {
-            if (getUI().getTheme().equals("demo2")) {
-                getUI().setTheme("demo");
-            } else {
-                getUI().setTheme("demo2");
-            }
-        });
-        buttonLayout.addComponent(themeButton);
-
         CheckBox shrink = new CheckBox("Shrink zero values");
-        shrink.setImmediate(true);
         shrink.addValueChangeListener(event -> {
-            boolean shrinkIt = (Boolean) event.getProperty().getValue();
+            boolean shrinkIt = event.getValue();
             for (DistributionBar bar : bars) {
                 bar.setZeroSizedVisible(!shrinkIt);
             }
