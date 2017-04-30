@@ -20,7 +20,6 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
-import javafx.scene.control.Tooltip;
 
 /**
  * Class that takes care of the tooltip presentation of Distribution Bar. Still

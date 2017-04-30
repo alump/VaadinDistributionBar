@@ -5,7 +5,7 @@
 	<groupId>org.vaadin.alump.distributionbar</groupId>
 	<artifactId>dbar-addon</artifactId>
 	<packaging>bundle</packaging>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<name>DistributionBar addon</name>
 
 	<properties>
