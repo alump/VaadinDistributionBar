@@ -3,7 +3,7 @@
 Simple bar that can be used to present distribution between different groups (
 e.g. distribution of votes).
 
-[![Build Status](https://epic.siika.fi/jenkins/job/DistributionBar%20(Vaadin)/1/badge/icon)](https://epic.siika.fi/jenkins/job/DistributionBar%20(Vaadin)/1/)
+[![Build Status](https://epic.siika.fi/jenkins/job/DistributionBar%20(Vaadin)/badge/icon)](https://epic.siika.fi/jenkins/job/DistributionBar%20(Vaadin)/)
 
 ## Release Notes:
 ### 3.0.1 (2017-04-30)
