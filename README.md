@@ -1,3 +1,6 @@
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/distributionbar)
+[![Stars on Vaadin Directory](https://img.shields.io/vaadin-directory/star/distributionbar.svg)](https://vaadin.com/directory/component/distributionbar)
+
 # Distribution Bar Vaadin UI Component Add On
 
 Simple bar that can be used to present distribution between different groups (
